@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fyntrum — Portfolio & Investment Advisor</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Nunito+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#050505}
+body{font-family:'Nunito Sans',sans-serif;color:#e2e0da;font-size:13px}
+:root{--g1:#22c55e;--g2:#15803d;--grad:linear-gradient(135deg,#22c55e,#15803d);--grad-logo:linear-gradient(135deg,#22c55e,#1E3A5F)}
+.pia{display:flex;flex-direction:column;height:100vh;background:#070707}
+.top{background:#0b0b0b;border-bottom:1px solid #1c1c1c;display:flex;align-items:center;justify-content:space-between;padding:0 20px;height:52px;flex-shrink:0;position:sticky;top:0;z-index:200}
+.logo-wrap{display:flex;align-items:center;gap:10px}
+.logo-icon{width:28px;height:28px;background:var(--grad-logo);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:800;font-size:12px;color:#fff;flex-shrink:0}
+.logo-name{font-family:'Montserrat',sans-serif;font-weight:800;font-size:15px;letter-spacing:0.04em}
+.logo-name .g{color:var(--g1)}
+.logo-tag{font-size:9px;color:#333;letter-spacing:0.14em;text-transform:uppercase;font-family:'Montserrat',sans-serif}
+.top-center{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:#2a2a2a}
+.top-actions{display:flex;gap:7px;align-items:center}
+.btn-sm{background:none;border:1px solid #222;color:#555;padding:6px 13px;border-radius:4px;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:all 0.15s}
+.btn-sm:hover{border-color:var(--g1);color:var(--g1)}
+.btn-green{background:var(--grad);border:none;color:#fff;padding:6px 15px;border-radius:4px;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+.btn-green:hover{opacity:0.88}
+.btn-client{background:none;border:1px solid #1E3A5F;color:#4a6a8f;padding:6px 13px;border-radius:4px;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:all 0.15s}
+.btn-client:hover,.btn-client.active{background:#1E3A5F;color:#fff}
+.body{display:flex;flex:1;overflow:hidden}
+.sidebar{width:215px;min-width:215px;background:#0b0b0b;border-right:1px solid #1c1c1c;display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0}
+.sb-s{padding:14px 12px 6px}
+.sb-lbl{font-size:8px;text-transform:uppercase;letter-spacing:0.16em;color:#2e2e2e;font-weight:700;font-family:'Montserrat',sans-serif;margin-bottom:8px}
+.nav-item{display:flex;flex-direction:column;padding:9px 10px;border-radius:5px;cursor:pointer;margin-bottom:2px;border:1px solid transparent;transition:all 0.15s}
+.nav-item:hover{background:#111}
+.nav-item.active{background:rgba(34,197,94,0.07);border-color:rgba(34,197,94,0.2)}
+.nav-dot{width:5px;height:5px;border-radius:50%;background:#252525;flex-shrink:0;transition:all 0.15s}
+.nav-item.active .nav-dot{background:var(--g1);box-shadow:0 0 5px rgba(34,197,94,0.5)}
+.nav-name{font-size:11px;font-weight:700;font-family:'Montserrat',sans-serif;color:#3a3a3a;transition:color 0.15s}
+.nav-item.active .nav-name{color:#e2e0da}
+.nav-price{font-size:9px;color:#272727;margin-left:13px}
+.nav-item.active .nav-price{color:#1a5c2e}
+.sb-div{height:1px;background:#161616;margin:6px 12px 10px}
+.sb-field{margin-bottom:7px}
+.sb-lbl2{font-size:8px;color:#333;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;font-family:'Montserrat',sans-serif;display:block;margin-bottom:4px}
+.sb-inp{background:#111;border:1px solid #1a1a1a;color:#e2e0da;padding:6px 9px;border-radius:4px;font-family:'Nunito Sans',sans-serif;font-size:12px;width:100%;outline:none;transition:border-color 0.15s}
+.sb-inp:focus{border-color:var(--g1)}
+.sb-2{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.sb-hist-empty{font-size:9px;color:#222;font-style:italic}
+.hist-item{padding:6px 8px;background:#0f0f0f;border-radius:4px;margin-bottom:4px;cursor:pointer;border:1px solid #181818;transition:border-color 0.15s}
+.hist-item:hover{border-color:#333}
+.hist-name{font-size:10px;color:#555;font-weight:600;font-family:'Montserrat',sans-serif}
+.hist-meta{font-size:8px;color:#2a2a2a}
+.sb-foot{padding:10px 12px;border-top:1px solid #161616;margin-top:auto;flex-shrink:0}
+.sb-foot-txt{font-size:8px;color:#1e1e1e;text-align:center;font-family:'Montserrat',sans-serif;line-height:1.6}
+.api-banner{background:#0f0f0f;border:1px solid #1e1e1e;border-radius:5px;padding:10px 12px;margin:0 12px 10px}
+.api-lbl{font-size:8px;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;font-family:'Montserrat',sans-serif;color:var(--g1);margin-bottom:5px;display:flex;align-items:center;gap:5px}
+.api-inp{background:#111;border:1px solid #2a2a2a;color:#e2e0da;padding:7px 9px;border-radius:4px;font-family:'Nunito Sans',sans-serif;font-size:11px;width:100%;outline:none;transition:border-color 0.15s}
+.api-inp:focus{border-color:var(--g1)}
+.api-hint{font-size:8px;color:#2a2a2a;margin-top:4px;line-height:1.4}
+.main-wrap{display:flex;flex:1;overflow:hidden;position:relative}
+.main{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0;transition:margin-right 0.3s ease}
+.card{background:#0b0b0b;border:1px solid #1c1c1c;border-radius:7px;padding:16px}
+.sec-t{display:flex;align-items:center;gap:7px;margin-bottom:12px}
+.sec-t-txt{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.16em;color:var(--g1)}
+.sec-line{flex:1;height:1px;background:#1c1c1c}
+.ig4{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.ig3{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.ig2{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.ifield label{font-size:8px;color:#333;text-transform:uppercase;letter-spacing:0.1em;font-weight:700;font-family:'Montserrat',sans-serif;display:block;margin-bottom:4px}
+.ifield input,.ifield select,.ifield textarea{background:#111;border:1px solid #1a1a1a;color:#e2e0da;padding:7px 9px;border-radius:4px;font-family:'Nunito Sans',sans-serif;font-size:12px;width:100%;outline:none;transition:border-color 0.15s}
+.ifield input:focus,.ifield select:focus,.ifield textarea:focus{border-color:var(--g1)}
+.sub-lbl{font-size:8px;text-transform:uppercase;letter-spacing:0.12em;color:#2e2e2e;font-weight:700;font-family:'Montserrat',sans-serif;margin-bottom:7px}
+.btn-calc{background:var(--grad);border:none;color:#fff;padding:9px 22px;border-radius:4px;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.btn-ghost{background:none;border:1px solid #1e1e1e;color:#4a4a4a;padding:7px 15px;border-radius:4px;font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:all 0.15s}
+.btn-ghost:hover{border-color:var(--g1);color:var(--g1)}
+.mg4{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.mg3{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.mg2{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+
+/* METRIC CARD */
+.mc{background:#0f0f0f;border:1px solid #1a1a1a;border-radius:6px;padding:12px;position:relative}
+.mc-name{font-size:7px;text-transform:uppercase;letter-spacing:0.14em;color:#333;font-weight:700;font-family:'Montserrat',sans-serif;margin-bottom:7px}
+.mc-val{font-size:20px;font-weight:700;font-family:'Montserrat',sans-serif;letter-spacing:-0.5px;margin-bottom:5px}
+.mc-sig{display:flex;align-items:center;gap:5px;margin-bottom:6px}
+.mc-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.mc-siglbl{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;font-family:'Montserrat',sans-serif}
+.mc-desc{font-size:9px;color:#2e2e2e;border-top:1px solid #161616;padding-top:6px;line-height:1.5}
+.mc-desc b{color:#3e3e3e}
+
+/* SIGNAL BADGE */
+.sig-buy{background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);color:#22c55e;padding:3px 9px;border-radius:3px;font-size:8px;font-weight:700;font-family:'Montserrat',sans-serif;letter-spacing:0.08em;text-transform:uppercase;display:inline-flex;align-items:center;gap:4px}
+.sig-hold{background:rgba(234,179,8,0.1);border:1px solid rgba(234,179,8,0.25);color:#eab308;padding:3px 9px;border-radius:3px;font-size:8px;font-weight:700;font-family:'Montserrat',sans-serif;letter-spacing:0.08em;text-transform:uppercase;display:inline-flex;align-items:center;gap:4px}
+.sig-sell{background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.25);color:#ef4444;padding:3px 9px;border-radius:3px;font-size:8px;font-weight:700;font-family:'Montserrat',sans-serif;letter-spacing:0.08em;text-transform:uppercase;display:inline-flex;align-items:center;gap:4px}
+
+/* BUCKET CARDS */
+.bucket{background:#0f0f0f;border-radius:6px;padding:14px;border:1px solid #1a1a1a}
+.bucket-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.bucket-name{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em}
+.bucket-pct{font-family:'Montserrat',sans-serif;font-size:22px;font-weight:800}
+.bucket-cap{font-size:11px;color:#555;margin-bottom:8px}
+.bucket-bar{height:3px;background:#1a1a1a;border-radius:2px;overflow:hidden;margin-bottom:8px}
+.bucket-bar-fill{height:100%;border-radius:2px}
+.bucket-items{display:flex;flex-direction:column;gap:3px}
+.bucket-item{display:flex;justify-content:space-between;font-size:10px;padding:3px 0;border-bottom:1px solid #141414}
+.bucket-item:last-child{border-bottom:none}
+.bucket-item-name{color:#555}
+.bucket-item-val{font-weight:600;font-family:'Montserrat',sans-serif}
+
+/* ASSET TABLE */
+.asset-table{width:100%;border-collapse:collapse;font-size:11px}
+.asset-table th{padding:6px 10px;border-bottom:1px solid #1a1a1a;text-align:left;font-size:7px;text-transform:uppercase;letter-spacing:0.12em;color:#2e2e2e;font-weight:700;font-family:'Montserrat',sans-serif}
+.asset-table th:last-child,.asset-table td:last-child{text-align:center}
+.asset-table td{padding:8px 10px;border-bottom:1px solid #141414;color:#555;vertical-align:middle}
+.asset-table tr:hover td{background:rgba(255,255,255,0.01)}
+.asset-ticker{font-family:'Montserrat',sans-serif;font-weight:700;color:#e2e0da;font-size:12px}
+.asset-name-sub{font-size:9px;color:#2a2a2a}
+.pnl-pos{color:#22c55e;font-weight:700;font-family:'Montserrat',sans-serif}
+.pnl-neg{color:#ef4444;font-weight:700;font-family:'Montserrat',sans-serif}
+.alert-row td{background:rgba(239,68,68,0.04);border-left:2px solid #ef4444}
+
+/* TABS */
+.tab-bar{display:flex;gap:2px;margin-bottom:14px;background:#0f0f0f;border:1px solid #1a1a1a;border-radius:6px;padding:3px}
+.tab-btn{padding:6px 14px;border-radius:4px;font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;border:none;background:none;color:#333;transition:all 0.15s;flex:1;text-align:center}
+.tab-btn.active{background:var(--grad);color:#fff}
+.tab-btn:hover:not(.active){color:#888}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+/* EXEC SUMMARY */
+.exec-summary{background:#0b0b0b;border:1px solid #1c1c1c;border-radius:7px;padding:16px}
+.exec-score{position:relative;width:72px;height:72px;flex-shrink:0}
+.exec-score svg{transform:rotate(-90deg);transform-origin:center}
+.exec-score-num{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Montserrat',sans-serif;font-size:20px;font-weight:800}
+.exec-grade{font-family:'Montserrat',sans-serif;font-size:16px;font-weight:700;margin-bottom:2px}
+.exec-nums{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+.exec-num{background:#111;border:1px solid #1a1a1a;border-radius:5px;padding:9px 12px}
+.exec-num-lbl{font-size:7px;text-transform:uppercase;letter-spacing:0.12em;color:#333;font-weight:700;font-family:'Montserrat',sans-serif;margin-bottom:4px}
+.exec-num-val{font-size:15px;font-weight:700;font-family:'Montserrat',sans-serif;color:#e2e0da}
+
+/* AI SECTION */
+.ai-section{background:#0b0b0b;border:1px solid #1c1c1c;border-radius:7px;padding:16px}
+.ai-hdr{display:flex;align-items:center;gap:7px;margin-bottom:12px}
+.ai-pulse{width:7px;height:7px;border-radius:50%;background:var(--g1);animation:pulse 2s ease-in-out infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.ai-title{font-family:'Montserrat',sans-serif;font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--g1)}
+.ai-text{font-size:12px;color:#3a3a3a;line-height:1.85;min-height:40px;font-style:italic;white-space:pre-wrap;border:1px solid #141414;border-radius:5px;padding:12px;background:#0f0f0f}
+.ai-actions{display:flex;gap:6px;margin-top:11px}
+
+/* OPPORTUNITY CARD */
+.opp-result{background:#0f0f0f;border:1px solid #1a1a1a;border-radius:6px;padding:14px;margin-top:12px}
+.opp-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.opp-ticker{font-family:'Montserrat',sans-serif;font-size:18px;font-weight:800;color:#e2e0da}
+.opp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.opp-item{background:#111;border-radius:4px;padding:8px 10px}
+.opp-item-lbl{font-size:7px;text-transform:uppercase;letter-spacing:0.1em;color:#2e2e2e;font-weight:700;font-family:'Montserrat',sans-serif;margin-bottom:3px}
+.opp-item-val{font-size:13px;font-weight:700;font-family:'Montserrat',sans-serif;color:#e2e0da}
+.opp-thesis{font-size:11px;color:#555;line-height:1.7;border-top:1px solid #1a1a1a;padding-top:10px}
+
+/* POLICY */
+.policy-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.policy-section{background:#0f0f0f;border:1px solid #1a1a1a;border-radius:5px;padding:12px}
+.policy-sec-lbl{font-size:8px;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;font-family:'Montserrat',sans-serif;color:var(--g1);margin-bottom:10px;display:flex;align-items:center;gap:5px}
+
+/* ASSISTANT PANEL */
+.asst-panel{width:316px;min-width:316px;background:#0b0b0b;border-left:1px solid #1c1c1c;display:flex;flex-direction:column;transform:translateX(100%);transition:transform 0.3s ease;position:absolute;right:0;top:0;bottom:0;z-index:100}
+.asst-panel.open{transform:translateX(0)}
+.asst-top{padding:14px 14px 10px;border-bottom:1px solid #1c1c1c;flex-shrink:0;display:flex;align-items:center;justify-content:space-between}
+.asst-top-title{display:flex;align-items:center;gap:7px}
+.asst-top-name{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;color:#e2e0da}
+.asst-top-sub{font-size:8px;color:#333;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.1em}
+.asst-close{background:none;border:none;color:#333;cursor:pointer;font-size:16px;padding:2px;line-height:1;transition:color 0.15s}
+.asst-close:hover{color:#e2e0da}
+.asst-icon{width:28px;height:28px;background:var(--grad-logo);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.asst-messages{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:100%;animation:fadeIn 0.3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.msg-asst{align-self:flex-start}
+.msg-user{align-self:flex-end}
+.msg-bubble{padding:10px 12px;border-radius:8px;font-size:11px;line-height:1.65}
+.msg-asst .msg-bubble{background:#111;border:1px solid #1c1c1c;color:#888;border-radius:0 8px 8px 8px}
+.msg-user .msg-bubble{background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.18);color:#c8c6c0;border-radius:8px 0 8px 8px}
+.msg-label{font-size:8px;color:#2a2a2a;margin-bottom:4px;font-family:'Montserrat',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.08em}
+.msg-user .msg-label{text-align:right;color:#1a4a2e}
+.dot-t{width:5px;height:5px;border-radius:50%;background:#333;animation:dots 1.2s ease-in-out infinite}
+.dot-t:nth-child(2){animation-delay:0.2s}
+.dot-t:nth-child(3){animation-delay:0.4s}
+@keyframes dots{0%,80%,100%{transform:scale(1);background:#333}40%{transform:scale(1.2);background:var(--g1)}}
+.asst-input-wrap{padding:12px;border-top:1px solid #1c1c1c;flex-shrink:0}
+.asst-form{display:flex;gap:7px;align-items:flex-end}
+.asst-input{flex:1;background:#111;border:1px solid #1a1a1a;color:#e2e0da;padding:8px 10px;border-radius:6px;font-family:'Nunito Sans',sans-serif;font-size:11px;resize:none;outline:none;transition:border-color 0.15s;line-height:1.4;min-height:36px;max-height:80px}
+.asst-input:focus{border-color:var(--g1)}
+.asst-send{background:var(--grad);border:none;color:#fff;width:34px;height:34px;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.asst-send:disabled{opacity:0.3;cursor:not-allowed}
+.asst-hint{font-size:8px;color:#222;margin-top:5px;text-align:center;font-family:'Montserrat',sans-serif}
+.asst-toggle{position:fixed;right:0;top:50%;transform:translateY(-50%);background:var(--grad-logo);border:none;color:#fff;padding:10px 7px;border-radius:6px 0 0 6px;cursor:pointer;z-index:150;display:flex;flex-direction:column;align-items:center;gap:4px}
+.asst-toggle.hidden{display:none}
+.asst-toggle span{font-family:'Montserrat',sans-serif;font-size:7px;font-weight:700;writing-mode:vertical-rl;text-orientation:mixed;letter-spacing:0.1em;text-transform:uppercase}
+
+/* CLIENT MODE */
+.analista-only{}
+body.cliente-mode .analista-only{display:none!important}
+.cliente-only{display:none}
+body.cliente-mode .cliente-only{display:block!important}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:40px 20px}
+.empty-icon{font-size:32px;color:#1a1a1a;display:block;margin-bottom:12px}
+.empty-title{font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:#2a2a2a;margin-bottom:6px}
+.empty-sub{font-size:11px;color:#222;line-height:1.6}
+.empty-acc{color:var(--g1);font-weight:600}
+
+/* RISK LABELS */
+.risk-bajo{color:#22c55e}.risk-medio{color:#eab308}.risk-alto{color:#ef4444}
+.tag{padding:2px 7px;border-radius:3px;font-size:7px;font-weight:700;letter-spacing:0.08em;font-family:'Montserrat',sans-serif;text-transform:uppercase}
+.tag-bajo{background:rgba(34,197,94,0.1);color:#22c55e}
+.tag-medio{background:rgba(234,179,8,0.1);color:#eab308}
+.tag-alto{background:rgba(239,68,68,0.1);color:#ef4444}
+
+@media print{
+  .sidebar,.top-actions,.api-banner,.btn-calc,.asst-panel,.asst-toggle,.analista-only,.ai-actions,.tab-bar{display:none!important}
+  .cliente-only{display:block!important}
+  body{background:#fff;color:#000}
+  .pia{height:auto}
+  .body,.main-wrap{display:block}
+  .main{overflow:visible;margin-right:0!important}
+  .card,.ai-section,.exec-summary,.opp-result,.bucket,.policy-section{border:1px solid #ddd;background:#fff;break-inside:avoid}
+  .mc{background:#f9f9f9;border-color:#ddd}
+  .ai-text{color:#333;font-style:normal}
+}
+</style>
+</head>
+<body>
+<div class="pia">
+  <div class="top">
+    <div class="logo-wrap">
+      <div class="logo-icon">F</div>
+      <div>
+        <div class="logo-name"><span class="g">FYN</span>TRUM</div>
+        <div class="logo-tag">Inteligencia en Inversiones</div>
+      </div>
+    </div>
+    <div class="top-center">Portfolio &amp; Investment Advisor</div>
+    <div class="top-actions">
+      <button class="btn-client" id="client-btn" onclick="toggleClientMode()"><i class="ti ti-user"></i>Modo Cliente</button>
+      <button class="btn-sm" onclick="exportData()"><i class="ti ti-download"></i>Exportar</button>
+      <label class="btn-sm" style="cursor:pointer"><i class="ti ti-upload"></i>Cargar<input type="file" accept=".json" style="display:none" onchange="importData(event)"></label>
+      <button class="btn-green" onclick="window.print()"><i class="ti ti-printer"></i>Imprimir PDF</button>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="sidebar">
+      <div class="sb-s">
+        <div class="sb-lbl">Servicio</div>
+        <div class="nav-item active">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px">
+            <div class="nav-dot" style="background:var(--g1);box-shadow:0 0 5px rgba(34,197,94,0.5)"></div>
+            <span class="nav-name" style="color:#e2e0da">Asesoría de Portafolio</span>
+          </div>
+          <div class="nav-price">$999 / año</div>
+        </div>
+      </div>
+      <div class="sb-div"></div>
+      <div class="api-banner">
+        <div class="api-lbl"><i class="ti ti-key" style="font-size:11px"></i>API Key Anthropic</div>
+        <input class="api-inp" id="api-key" type="password" placeholder="sk-ant-api03-...">
+        <div class="api-hint">Necesaria para el Asistente IA y análisis de oportunidades.</div>
+      </div>
+      <div class="sb-div"></div>
+      <div class="sb-s">
+        <div class="sb-lbl">Cliente</div>
+        <div class="sb-field"><label class="sb-lbl2">Nombre</label><input class="sb-inp" id="cliente-nombre" type="text" placeholder="Juan Pérez"></div>
+        <div class="sb-field"><label class="sb-lbl2">Capital Total ($)</label><input class="sb-inp" id="capital-total" type="number" placeholder="50000" oninput="updateBuckets()"></div>
+        <div class="sb-2">
+          <div class="sb-field"><label class="sb-lbl2">% Bajo</label><input class="sb-inp" id="pct-bajo" type="number" value="40" min="0" max="100" oninput="updateBuckets()"></div>
+          <div class="sb-field"><label class="sb-lbl2">% Medio</label><input class="sb-inp" id="pct-medio" type="number" value="30" min="0" max="100" oninput="updateBuckets()"></div>
+        </div>
+        <div class="sb-field"><label class="sb-lbl2">% Alto</label><input class="sb-inp" id="pct-alto" type="number" value="30" min="0" max="100" oninput="updateBuckets()"></div>
+        <div class="sb-field"><label class="sb-lbl2">Horizonte</label>
+          <select class="sb-inp" id="horizonte">
+            <option>1-2 años</option><option selected>3-5 años</option><option>5-10 años</option><option>+10 años</option>
+          </select>
+        </div>
+        <div class="sb-field"><label class="sb-lbl2">Analista</label><input class="sb-inp" id="analista" type="text" value="Fyntrum"></div>
+      </div>
+      <div class="sb-div"></div>
+      <div class="sb-s">
+        <div class="sb-lbl">Historial</div>
+        <div id="hist-list" class="sb-hist-empty">Sin clientes guardados</div>
+      </div>
+      <div class="sb-foot">
+        <div class="sb-foot-txt">Fyntrum · Portfolio Advisor<br><span>v1.0 — Herramienta interna</span></div>
+      </div>
+    </div>
+
+    <div class="main-wrap">
+      <div class="main" id="pia-main">
+
+        <!-- EXECUTIVE SUMMARY -->
+        <div class="exec-summary" id="exec-block">
+          <div style="display:flex;align-items:center;gap:14px">
+            <div class="exec-score">
+              <svg width="72" height="72" viewBox="0 0 72 72">
+                <circle cx="36" cy="36" r="30" fill="none" stroke="#1a1a1a" stroke-width="6"/>
+                <circle id="score-ring" cx="36" cy="36" r="30" fill="none" stroke="#22c55e" stroke-width="6" stroke-dasharray="0 188.5" stroke-linecap="round"/>
+              </svg>
+              <div class="exec-score-num" id="score-num" style="color:#22c55e">—</div>
+            </div>
+            <div>
+              <div class="exec-grade" id="score-grade" style="color:#22c55e">Portfolio &amp; Investment Advisor</div>
+              <div style="font-size:10px;color:#333;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.08em" id="client-sub">Ingresa el capital del cliente para comenzar</div>
+              <div style="font-size:9px;color:#2a2a2a;margin-top:4px">Score de salud del portafolio / 100</div>
+            </div>
+            <div style="margin-left:auto;text-align:right">
+              <div style="font-size:8px;color:#333;font-family:'Montserrat',sans-serif;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px">Analista</div>
+              <div style="font-size:11px;color:#555;font-weight:600" id="analista-disp">Fyntrum</div>
+              <div style="font-size:10px;color:#2a2a2a" id="fecha-disp"></div>
+            </div>
+          </div>
+          <div class="exec-nums" id="exec-nums">
+            <div class="exec-num"><div class="exec-num-lbl">Capital Total</div><div class="exec-num-val" id="en-capital">—</div></div>
+            <div class="exec-num"><div class="exec-num-lbl">N° Activos</div><div class="exec-num-val" id="en-activos">—</div></div>
+            <div class="exec-num"><div class="exec-num-lbl">Rendimiento Total</div><div class="exec-num-val" id="en-rend">—</div></div>
+            <div class="exec-num"><div class="exec-num-lbl">Activos en Alerta</div><div class="exec-num-val" id="en-alertas" style="color:#ef4444">—</div></div>
+          </div>
+        </div>
+
+        <!-- TABS MAIN -->
+        <div class="tab-bar">
+          <button class="tab-btn active" onclick="showTab('politica',this)"><i class="ti ti-file-certificate"></i> Política</button>
+          <button class="tab-btn" onclick="showTab('portafolio',this)"><i class="ti ti-chart-donut"></i> Portafolio</button>
+          <button class="tab-btn" onclick="showTab('analisis',this)"><i class="ti ti-chart-candle"></i> Análisis</button>
+          <button class="tab-btn" onclick="showTab('oportunidad',this)"><i class="ti ti-radar"></i> Oportunidades</button>
+          <button class="tab-btn" onclick="showTab('seguimiento',this)"><i class="ti ti-list-check"></i> Seguimiento</button>
+          <button class="tab-btn" onclick="showTab('informe',this)"><i class="ti ti-report"></i> Informe</button>
+        </div>
+
+        <!-- TAB: POLÍTICA DE INVERSIÓN -->
+        <div id="tab-politica" class="tab-content active">
+          <div class="card analista-only">
+            <div class="sec-t"><i class="ti ti-file-certificate" style="font-size:12px;color:var(--g1)"></i><span class="sec-t-txt">Política de Inversión del Cliente</span><div class="sec-line"></div>
+              <button class="btn-ghost" onclick="savePolitica(this)" style="margin-left:8px;flex-shrink:0"><i class="ti ti-device-floppy"></i>Guardar</button>
+            </div>
+            <div class="policy-grid">
+              <div class="policy-section">
+                <div class="policy-sec-lbl"><i class="ti ti-user"></i>Perfil del Inversor</div>
+                <div class="ig2" style="margin-bottom:9px">
+                  <div class="ifield"><label>Profesión</label><input id="pol-profesion" type="text" placeholder="Empresario"></div>
+                  <div class="ifield"><label>Edad</label><input id="pol-edad" type="number" placeholder="35"></div>
+                </div>
+                <div class="ifield" style="margin-bottom:9px"><label>Objetivo de inversión</label>
+                  <select id="pol-objetivo">
+                    <option>Preservar capital con retorno moderado</option>
+                    <option>Crecer el capital a largo plazo</option>
+                    <option>Generar ingresos pasivos</option>
+                    <option>Maximizar retorno aceptando alta volatilidad</option>
+                  </select>
+                </div>
+                <div class="ifield"><label>Pérdida máxima tolerable (%)</label><input id="pol-perdida" type="number" placeholder="20" value="20"></div>
+              </div>
+              <div class="policy-section">
+                <div class="policy-sec-lbl"><i class="ti ti-shield"></i>Restricciones</div>
+                <div class="ifield" style="margin-bottom:9px"><label>Activos excluidos por principio</label><input id="pol-excluidos" type="text" placeholder="Ej: tabaco, armas, juegos de azar"></div>
+                <div class="ifield" style="margin-bottom:9px"><label>Posición máxima por activo (%)</label><input id="pol-maxpos" type="number" placeholder="15" value="15"></div>
+                <div class="ifield"><label>Frecuencia de rebalanceo</label>
+                  <select id="pol-rebalanceo">
+                    <option>Mensual</option><option selected>Trimestral</option><option>Semestral</option><option>Anual</option>
+                  </select>
+                </div>
+              </div>
+              <div class="policy-section">
+                <div class="policy-sec-lbl"><i class="ti ti-trending-up"></i>Benchmarks de Referencia</div>
+                <div class="ig2" style="margin-bottom:9px">
+                  <div class="ifield"><label>Benchmark Principal</label>
+                    <select id="pol-bench1"><option>S&P 500</option><option>NASDAQ 100</option><option>Bitcoin</option><option>Gold</option></select>
+                  </div>
+                  <div class="ifield"><label>Retorno anual esperado (%)</label><input id="pol-retorno" type="number" placeholder="12" value="12"></div>
+                </div>
+                <div class="ifield"><label>Notas adicionales</label>
+                  <textarea id="pol-notas" rows="2" placeholder="El cliente prefiere empresas tech de gran capitalización..."></textarea>
+                </div>
+              </div>
+              <div class="policy-section">
+                <div class="policy-sec-lbl"><i class="ti ti-alert-triangle"></i>Reglas de Salida</div>
+                <div class="ig2" style="margin-bottom:9px">
+                  <div class="ifield"><label>Stop loss global (%)</label><input id="pol-stop" type="number" placeholder="15" value="15"></div>
+                  <div class="ifield"><label>Take profit parcial (%)</label><input id="pol-takeprofit" type="number" placeholder="30" value="30"></div>
+                </div>
+                <div class="ifield"><label>Condición de revisión urgente</label>
+                  <select id="pol-urgente">
+                    <option>Caída &gt;10% en un activo en 1 semana</option>
+                    <option>Caída &gt;15% en portafolio total</option>
+                    <option>Cambio fundamental en el negocio</option>
+                    <option>Cambio regulatorio adverso</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:14px;background:#0f0f0f;border:1px solid rgba(34,197,94,0.15);border-radius:5px;padding:12px;font-size:10px;color:#2a2a2a;line-height:1.7" id="pol-disclaimer">
+              <span style="color:var(--g1);font-weight:700;font-family:'Montserrat',sans-serif;font-size:8px;text-transform:uppercase;letter-spacing:0.1em">Disclaimer — </span>
+              Este documento es una política de inversión referencial elaborada por Fyntrum con base en el perfil declarado del cliente. No constituye auditoría financiera ni garantía de rendimiento. Los resultados pasados no garantizan resultados futuros. Ambas partes reconocen que toda inversión conlleva riesgo de pérdida.
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: PORTAFOLIO BUILDER -->
+        <div id="tab-portafolio" class="tab-content">
+          <div class="card analista-only">
+            <div class="sec-t"><i class="ti ti-chart-donut" style="font-size:12px;color:var(--g1)"></i><span class="sec-t-txt">Constructor de Portafolio — Distribución de Capital</span><div class="sec-line"></div></div>
+            <div style="display:grid;grid-template-columns:1fr 200px;gap:16px;margin-bottom:16px;align-items:start">
+              <div class="mg3">
+                <div class="bucket" id="bucket-bajo" style="border-top:2px solid #22c55e">
+                  <div class="bucket-top">
+                    <div>
+                      <div class="bucket-name risk-bajo">Riesgo Bajo</div>
+                      <div style="font-size:8px;color:#2a2a2a;margin-top:2px">ETFs · Dividend Stocks · Bonos</div>
+                    </div>
+                    <div class="bucket-pct risk-bajo" id="bp-bajo">40%</div>
+                  </div>
+                  <div class="bucket-cap" id="bc-bajo">Capital: —</div>
+                  <div class="bucket-bar"><div class="bucket-bar-fill" id="bb-bajo" style="width:40%;background:#22c55e"></div></div>
+                  <div style="font-size:8px;color:#2a2a2a;margin-bottom:8px">Value investing aplicado · Margen de seguridad mínimo 30%</div>
+                  <div id="items-bajo" class="bucket-items"></div>
+                </div>
+                <div class="bucket" id="bucket-medio" style="border-top:2px solid #eab308">
+                  <div class="bucket-top">
+                    <div>
+                      <div class="bucket-name risk-medio">Riesgo Medio</div>
+                      <div style="font-size:8px;color:#2a2a2a;margin-top:2px">Growth Stocks · Commodities · REITs</div>
+                    </div>
+                    <div class="bucket-pct risk-medio" id="bp-medio">30%</div>
+                  </div>
+                  <div class="bucket-cap" id="bc-medio">Capital: —</div>
+                  <div class="bucket-bar"><div class="bucket-bar-fill" id="bb-medio" style="width:30%;background:#eab308"></div></div>
+                  <div style="font-size:8px;color:#2a2a2a;margin-bottom:8px">Momentum + análisis fundamental · Horizonte 2-4 años</div>
+                  <div id="items-medio" class="bucket-items"></div>
+                </div>
+                <div class="bucket" id="bucket-alto" style="border-top:2px solid #ef4444">
+                  <div class="bucket-top">
+                    <div>
+                      <div class="bucket-name risk-alto">Riesgo Alto</div>
+                      <div style="font-size:8px;color:#2a2a2a;margin-top:2px">Crypto · CFDs · Especulativos</div>
+                    </div>
+                    <div class="bucket-pct risk-alto" id="bp-alto">30%</div>
+                  </div>
+                  <div class="bucket-cap" id="bc-alto">Capital: —</div>
+                  <div class="bucket-bar"><div class="bucket-bar-fill" id="bb-alto" style="width:30%;background:#ef4444"></div></div>
+                  <div style="font-size:8px;color:#2a2a2a;margin-bottom:8px">Gestión de riesgo estricta · Stop loss obligatorio por posición</div>
+                  <div id="items-alto" class="bucket-items"></div>
+                </div>
+              </div>
+              <div style="position:relative;height:200px"><canvas id="donut-c" role="img" aria-label="Distribución del portafolio por nivel de riesgo">Distribución de portafolio.</canvas></div>
+            </div>
+            <div style="height:1px;background:#161616;margin:0 0 14px"></div>
+            <div class="sub-lbl">Agregar Activo al Portafolio</div>
+            <div class="ig4" style="margin-bottom:9px">
+              <div class="ifield"><label>Ticker / Nombre</label><input id="new-ticker" type="text" placeholder="AAPL, BTC, GLD..."></div>
+              <div class="ifield"><label>Tipo</label>
+                <select id="new-tipo">
+                  <option value="stock">Acción</option><option value="etf">ETF</option>
+                  <option value="crypto">Crypto</option><option value="commodity">Commodity</option><option value="cfd">CFD</option>
+                </select>
+              </div>
+              <div class="ifield"><label>Bucket de Riesgo</label>
+                <select id="new-bucket">
+                  <option value="bajo">Riesgo Bajo</option><option value="medio">Riesgo Medio</option><option value="alto">Riesgo Alto</option>
+                </select>
+              </div>
+              <div class="ifield"><label>Capital Asignado ($)</label><input id="new-capital" type="number" placeholder="5000"></div>
+            </div>
+            <div class="ig4" style="margin-bottom:12px">
+              <div class="ifield"><label>Precio Entrada ($)</label><input id="new-entrada" type="number" placeholder="180.50"></div>
+              <div class="ifield"><label>Target Price ($)</label><input id="new-target" type="number" placeholder="220.00"></div>
+              <div class="ifield"><label>Stop Loss ($)</label><input id="new-stop" type="number" placeholder="160.00"></div>
+              <div class="ifield"><label>Tesis (breve)</label><input id="new-tesis" type="text" placeholder="Subvalorado vs peers, FCF sólido"></div>
+            </div>
+            <button class="btn-calc" onclick="addAsset()"><i class="ti ti-plus"></i>Agregar al Portafolio</button>
+          </div>
+        </div>
+
+        <!-- TAB: ANÁLISIS DE ACTIVOS -->
+        <div id="tab-analisis" class="tab-content">
+          <div class="card analista-only">
+            <div class="sec-t"><i class="ti ti-chart-candle" style="font-size:12px;color:var(--g1)"></i><span class="sec-t-txt">Análisis de Activo Individual</span><div class="sec-line"></div></div>
+            <div class="tab-bar" style="margin-bottom:14px">
+              <button class="tab-btn active" onclick="showAnalisisTab('stock',this)">Acciones</button>
+              <button class="tab-btn" onclick="showAnalisisTab('etf',this)">ETFs</button>
+              <button class="tab-btn" onclick="showAnalisisTab('crypto',this)">Crypto</button>
+              <button class="tab-btn" onclick="showAnalisisTab('commodity',this)">Commodities</button>
+            </div>
+
+            <!-- Stocks -->
+            <div id="atab-stock" class="tab-content active">
+              <div class="ig4" style="margin-bottom:9px">
+                <div class="ifield"><label>Ticker</label><input id="s-ticker" type="text" placeholder="AAPL"></div>
+                <div class="ifield"><label>Precio Actual ($)</label><input id="s-precio" type="number" placeholder="185.00"></div>
+                <div class="ifield"><label>EPS ($)</label><input id="s-eps" type="number" placeholder="6.43"></div>
+                <div class="ifield"><label>P/E Actual</label><input id="s-pe" type="number" placeholder="28.5"></div>
+              </div>
+              <div class="ig4" style="margin-bottom:9px">
+                <div class="ifield"><label>ROE (%)</label><input id="s-roe" type="number" placeholder="160"></div>
+                <div class="ifield"><label>FCF por Acción ($)</label><input id="s-fcf" type="number" placeholder="7.20"></div>
+                <div class="ifield"><label>Beta</label><input id="s-beta" type="number" placeholder="1.2" step="0.1"></div>
+                <div class="ifield"><label>Book Value/Acción ($)</label><input id="s-bv" type="number" placeholder="4.80"></div>
+              </div>
+              <div class="ig4" style="margin-bottom:12px">
+                <div class="ifield"><label>P/E Histórico Medio</label><input id="s-pe-hist" type="number" placeholder="25"></div>
+                <div class="ifield"><label>Tasa Descuento DCF (%)</label><input id="s-dcf-rate" type="number" placeholder="10" value="10"></div>
+                <div class="ifield"><label>Crecimiento FCF (%)</label><input id="s-fcf-growth" type="number" placeholder="8" value="8"></div>
+                <div class="ifield"><label>Años proyección DCF</label><input id="s-dcf-years" type="number" placeholder="10" value="10"></div>
+              </div>
+              <button class="btn-calc" onclick="calcStock()"><i class="ti ti-calculator"></i>Calcular Valor Intrínseco</button>
+              <div id="stock-result" style="margin-top:14px"></div>
+            </div>
+
+            <!-- ETFs -->
+            <div id="atab-etf" class="tab-content">
+              <div class="ig4" style="margin-bottom:9px">
+                <div class="ifield"><label>Ticker ETF</label><input id="e-ticker" type="text" placeholder="SPY, QQQ, VTI..."></div>
+                <div class="ifield"><label>Precio Actual ($)</label><input id="e-precio" type="number" placeholder="450.00"></div>
+                <div class="ifield"><label>Expense Ratio (%)</label><input id="e-expense" type="number" placeholder="0.03" step="0.01"></div>
+                <div class="ifield"><label>AUM (Millones $)</label><input id="e-aum" type="number" placeholder="380000"></div>
+              </div>
+              <div class="ig4" style="margin-bottom:12px">
+                <div class="ifield"><label>Rendimiento 1 año (%)</label><input id="e-r1" type="number" placeholder="26"></div>
+                <div class="ifield"><label>Rendimiento 3 años (%)</label><input id="e-r3" type="number" placeholder="10"></div>
+                <div class="ifield"><label>Rendimiento 5 años (%)</label><input id="e-r5" type="number" placeholder="15"></div>
+                <div class="ifield"><label>Sharpe Ratio</label><input id="e-sharpe" type="number" placeholder="1.3" step="0.1"></div>
+              </div>
+              <div class="ig4" style="margin-bottom:12px">
+                <div class="ifield"><label>Dividend Yield (%)</label><input id="e-div" type="number" placeholder="1.3" step="0.1"></div>
+                <div class="ifield"><label>N° Holdings</label><input id="e-holdings" type="number" placeholder="503"></div>
+                <div class="ifield"><label>Índice que replica</label><input id="e-benchmark" type="text" placeholder="S&P 500"></div>
+                <div class="ifield"><label>Beta</label><input id="e-beta" type="number" placeholder="1.0" step="0.1"></div>
+              </div>
+              <button class="btn-calc" onclick="calcETF()"><i class="ti ti-calculator"></i>Analizar ETF</button>
+              <div id="etf-result" style="margin-top:14px"></div>
+            </div>
+
+            <!-- Crypto -->
+            <div id="atab-crypto" class="tab-content">
+              <div class="ig4" style="margin-bottom:9px">
+                <div class="ifield"><label>Activo</label><input id="c-ticker" type="text" placeholder="Bitcoin, Ethereum..."></div>
+                <div class="ifield"><label>Precio Actual ($)</label><input id="c-precio" type="number" placeholder="65000"></div>
+                <div class="ifield"><label>Market Cap (M$)</label><input id="c-mcap" type="number" placeholder="1280000"></div>
+                <div class="ifield"><label>Dominancia BTC (%)</label><input id="c-dom" type="number" placeholder="54"></div>
+              </div>
+              <div class="ig4" style="margin-bottom:9px">
+                <div class="ifield"><label>Volumen 24h (M$)</label><input id="c-vol" type="number" placeholder="32000"></div>
+                <div class="ifield"><label>ATH ($)</label><input id="c-ath" type="number" placeholder="73000"></div>
+                <div class="ifield"><label>% desde ATH</label><input id="c-ath-pct" type="number" placeholder="-11"></div>
+                <div class="ifield"><label>Fear &amp; Greed (0-100)</label><input id="c-fg" type="number" placeholder="72" min="0" max="100"></div>
+              </div>
+              <div class="ig4" style="margin-bottom:12px">
+                <div class="ifield"><label>RSI (14d)</label><input id="c-rsi" type="number" placeholder="58" min="0" max="100"></div>
+                <div class="ifield"><label>Ciclo de mercado</label>
+                  <select id="c-ciclo"><option>Acumulación</option><option>Tendencia alcista</option><option>Distribución</option><option>Tendencia bajista</option></select>
+                </div>
+                <div class="ifield"><label>Soporte clave ($)</label><input id="c-soporte" type="number" placeholder="58000"></div>
+                <div class="ifield"><label>Resistencia clave ($)</label><input id="c-resist" type="number" placeholder="73000"></div>
+              </div>
+              <button class="btn-calc" onclick="calcCrypto()"><i class="ti ti-calculator"></i>Analizar Crypto</button>
+              <div id="crypto-result" style="margin-top:14px"></div>
+            </div>
+
+            <!-- Commodities -->
+            <div id="atab-commodity" class="tab-content">
+              <div class="ig4" style="margin-bottom:9px">
+                <div class="ifield"><label>Commodity</label><input id="co-nombre" type="text" placeholder="Gold, Oil, Silver..."></div>
+                <div class="ifield"><label>Precio Actual ($)</label><input id="co-precio" type="number" placeholder="2350"></div>
+                <div class="ifield"><label>Precio hace 1 año ($)</label><input id="co-p1y" type="number" placeholder="1980"></div>
+                <div class="ifield"><label>Precio hace 5 años ($)</label><input id="co-p5y" type="number" placeholder="1750"></div>
+              </div>
+              <div class="ig4" style="margin-bottom:12px">
+                <div class="ifield"><label>Tendencia</label>
+                  <select id="co-tendencia"><option>Alcista fuerte</option><option>Alcista moderada</option><option>Lateral</option><option>Bajista moderada</option><option>Bajista fuerte</option></select>
+                </div>
+                <div class="ifield"><label>Correlación vs S&P 500</label>
+                  <select id="co-corr"><option>Negativa (refugio)</option><option>Baja</option><option>Moderada</option><option>Alta</option></select>
+                </div>
+                <div class="ifield"><label>Driver principal</label><input id="co-driver" type="text" placeholder="Inflación, demanda China..."></div>
+                <div class="ifield"><label>% Max posición portafolio</label><input id="co-peso" type="number" placeholder="10"></div>
+              </div>
+              <button class="btn-calc" onclick="calcCommodity()"><i class="ti ti-calculator"></i>Analizar Commodity</button>
+              <div id="commodity-result" style="margin-top:14px"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: RADAR DE OPORTUNIDADES IA -->
+        <div id="tab-oportunidad" class="tab-content">
+          <div class="ai-section">
+            <div class="ai-hdr"><div class="ai-pulse"></div><span class="ai-title">Radar de Oportunidades — Análisis IA · Haiku 4.5</span></div>
+            <div class="ig4" style="margin-bottom:12px">
+              <div class="ifield"><label>Ticker / Activo</label><input id="opp-ticker" type="text" placeholder="NVDA, BTC, GLD, SPY..."></div>
+              <div class="ifield"><label>Tipo</label>
+                <select id="opp-tipo"><option>Acción</option><option>ETF</option><option>Crypto</option><option>Commodity</option><option>CFD</option></select>
+              </div>
+              <div class="ifield"><label>Precio Actual ($)</label><input id="opp-precio" type="number" placeholder="450.00"></div>
+              <div class="ifield"><label>Contexto adicional</label><input id="opp-contexto" type="text" placeholder="Ej: reportó earnings +20% esta semana"></div>
+            </div>
+            <div class="ig4" style="margin-bottom:12px">
+              <div class="ifield"><label>Perfil del cliente</label>
+                <select id="opp-perfil"><option>Conservador</option><option selected>Moderado</option><option>Agresivo</option></select>
+              </div>
+              <div class="ifield"><label>Horizonte</label>
+                <select id="opp-horizonte"><option>Corto (días-semanas)</option><option selected>Medio (meses)</option><option>Largo (+1 año)</option></select>
+              </div>
+              <div class="ifield"><label>Capital disponible ($)</label><input id="opp-capital" type="number" placeholder="5000"></div>
+              <div class="ifield"><label>Stop loss máx (%)</label><input id="opp-stop" type="number" placeholder="15" value="15"></div>
+            </div>
+            <button class="btn-calc" onclick="scanOpportunity()"><i class="ti ti-radar"></i>Escanear Oportunidad</button>
+            <div id="opp-result"></div>
+          </div>
+        </div>
+
+        <!-- TAB: SEGUIMIENTO -->
+        <div id="tab-seguimiento" class="tab-content">
+          <div class="card">
+            <div class="sec-t"><i class="ti ti-list-check" style="font-size:12px;color:var(--g1)"></i><span class="sec-t-txt">Seguimiento del Portafolio</span><div class="sec-line"></div>
+              <button class="btn-ghost" onclick="updatePrices()" style="margin-left:8px;flex-shrink:0"><i class="ti ti-refresh"></i>Actualizar precios</button>
+            </div>
+            <div id="seguimiento-table">
+              <div class="empty-state">
+                <i class="ti ti-database empty-icon"></i>
+                <div class="empty-title">Sin activos en portafolio</div>
+                <div class="empty-sub">Agrega activos en la pestaña<br><span class="empty-acc">Portafolio</span> para ver el seguimiento</div>
+              </div>
+            </div>
+          </div>
+          <div class="card analista-only" id="benchmark-card" style="display:none">
+            <div class="sec-t"><i class="ti ti-trending-up" style="font-size:12px;color:var(--g1)"></i><span class="sec-t-txt">Comparativo vs Benchmark</span><div class="sec-line"></div></div>
+            <div id="benchmark-content"></div>
+          </div>
+        </div>
+
+        <!-- TAB: INFORME MENSUAL -->
+        <div id="tab-informe" class="tab-content">
+          <div class="ai-section">
+            <div class="ai-hdr"><div class="ai-pulse"></div><span class="ai-title">Informe Mensual de Asesoría — Haiku 4.5</span></div>
+            <div class="ig4" style="margin-bottom:12px">
+              <div class="ifield"><label>Mes del informe</label><input id="inf-mes" type="text" placeholder="Mayo 2026"></div>
+              <div class="ifield"><label>Rendimiento portafolio (%)</label><input id="inf-rend" type="number" placeholder="3.2"></div>
+              <div class="ifield"><label>Rendimiento benchmark (%)</label><input id="inf-bench" type="number" placeholder="2.1"></div>
+              <div class="ifield"><label>N° operaciones del mes</label><input id="inf-ops" type="number" placeholder="3"></div>
+            </div>
+            <div class="ig2" style="margin-bottom:12px">
+              <div class="ifield"><label>Mejor activo del mes</label><input id="inf-mejor" type="text" placeholder="NVDA +18%"></div>
+              <div class="ifield"><label>Activo más débil del mes</label><input id="inf-peor" type="text" placeholder="BTC -5%"></div>
+            </div>
+            <button class="btn-calc" onclick="genInforme()"><i class="ti ti-sparkles"></i>Generar Informe Mensual</button>
+            <div class="ai-text" id="ai-informe" style="margin-top:12px">Completa los datos del mes y presiona Generar para crear el informe para el cliente...</div>
+            <div class="ai-actions analista-only">
+              <button class="btn-ghost" id="inf-btn-regen" onclick="genInforme()" style="display:none"><i class="ti ti-refresh"></i>Regenerar</button>
+              <button class="btn-ghost" onclick="saveClient(this)"><i class="ti ti-device-floppy"></i>Guardar Cliente</button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end main -->
+
+      <!-- ASSISTANT PANEL -->
+      <div class="asst-panel" id="asst-panel">
+        <div class="asst-top">
+          <div class="asst-top-title">
+            <div class="asst-icon"><i class="ti ti-brain" style="font-size:13px;color:#fff"></i></div>
+            <div>
+              <div class="asst-top-name">Asistente de Inversiones</div>
+              <div class="asst-top-sub">Fyntrum IA · Haiku 4.5</div>
+            </div>
+          </div>
+          <button class="asst-close" onclick="toggleAsst(false)"><i class="ti ti-x"></i></button>
+        </div>
+        <div class="asst-messages" id="asst-msgs">
+          <div class="msg msg-asst">
+            <div class="msg-label">Asistente</div>
+            <div class="msg-bubble">Listo para ayudarte con análisis de activos, interpretación de métricas y estrategias de inversión. Agrega activos al portafolio y te daré una lectura del estado del portafolio.</div>
+          </div>
+        </div>
+        <div id="asst-typing" class="msg msg-asst" style="display:none">
+          <div class="msg-label">Asistente</div>
+          <div style="display:flex;gap:4px;align-items:center;padding:10px 12px;background:#111;border:1px solid #1c1c1c;border-radius:0 8px 8px 8px">
+            <div class="dot-t"></div><div class="dot-t"></div><div class="dot-t"></div>
+          </div>
+        </div>
+        <div class="asst-input-wrap">
+          <div class="asst-form">
+            <textarea class="asst-input" id="asst-input" placeholder="¿Debo comprar NVDA ahora?" rows="1" onkeydown="handleKey(event)"></textarea>
+            <button class="asst-send" id="asst-send" onclick="sendMsg()"><i class="ti ti-send" style="font-size:14px"></i></button>
+          </div>
+          <div class="asst-hint">Haiku 4.5 · ~$0.001 por mensaje</div>
+        </div>
+      </div>
+    </div><!-- end main-wrap -->
+  </div><!-- end body -->
+</div>
+
+<button class="asst-toggle hidden" id="asst-toggle" onclick="toggleAsst(true)">
+  <i class="ti ti-brain" style="font-size:14px"></i>
+  <span>Asistente IA</span>
+</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+'use strict';
+let assets=[],donutChart=null,asstOpen=false,chatHistory=[],isTyping=false,clientMode=false;
+const n=v=>parseFloat(v)||0;
+const fmt=v=>new Intl.NumberFormat('es-EC',{minimumFractionDigits:0,maximumFractionDigits:0}).format(Math.round(v||0));
+const pct=(v,d=1)=>((v||0)*100).toFixed(d)+'%';
+const fix=(v,d=2)=>(v||0).toFixed(d);
+
+// ── Tabs ──────────────────────────────────────────────────────
+function showTab(id,btn){
+  document.querySelectorAll('.tab-content:not([id^="atab"])').forEach(t=>{if(t.id.startsWith('tab-'))t.classList.remove('active')});
+  document.querySelectorAll('.tab-bar:first-of-type .tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id)?.classList.add('active');
+  btn?.classList.add('active');
+  if(id==='seguimiento')renderSeguimiento();
+}
+function showAnalisisTab(id,btn){
+  document.querySelectorAll('[id^="atab-"]').forEach(t=>t.classList.remove('active'));
+  btn.closest('.tab-bar').querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('atab-'+id)?.classList.add('active');
+  btn?.classList.add('active');
+}
+
+// ── Client mode ───────────────────────────────────────────────
+function toggleClientMode(){
+  clientMode=!clientMode;
+  document.body.classList.toggle('cliente-mode',clientMode);
+  const btn=document.getElementById('client-btn');
+  if(btn){btn.classList.toggle('active',clientMode);btn.innerHTML=clientMode?'<i class="ti ti-lock"></i>Modo Analista':'<i class="ti ti-user"></i>Modo Cliente';}
+}
+
+// ── Buckets ───────────────────────────────────────────────────
+function updateBuckets(){
+  const cap=n(document.getElementById('capital-total').value);
+  const bajo=n(document.getElementById('pct-bajo').value)/100;
+  const medio=n(document.getElementById('pct-medio').value)/100;
+  const alto=n(document.getElementById('pct-alto').value)/100;
+  document.getElementById('bp-bajo').textContent=pct(bajo,0);
+  document.getElementById('bp-medio').textContent=pct(medio,0);
+  document.getElementById('bp-alto').textContent=pct(alto,0);
+  document.getElementById('bc-bajo').textContent=cap?`Capital: $${fmt(cap*bajo)}`:'Capital: —';
+  document.getElementById('bc-medio').textContent=cap?`Capital: $${fmt(cap*medio)}`:'Capital: —';
+  document.getElementById('bc-alto').textContent=cap?`Capital: $${fmt(cap*alto)}`:'Capital: —';
+  document.getElementById('bb-bajo').style.width=pct(bajo,0);
+  document.getElementById('bb-medio').style.width=pct(medio,0);
+  document.getElementById('bb-alto').style.width=pct(alto,0);
+  document.getElementById('en-capital').textContent=cap?`$${fmt(cap)}`:'—';
+  document.getElementById('client-sub').textContent=`${document.getElementById('cliente-nombre').value||'Cliente'} · ${document.getElementById('horizonte').value}`;
+  document.getElementById('analista-disp').textContent=document.getElementById('analista').value||'Fyntrum';
+  document.getElementById('fecha-disp').textContent=new Date().toLocaleDateString('es-EC');
+  updateDonut(bajo,medio,alto);
+  updateBucketItems();
+  updateScore();
+}
+
+function updateDonut(bajo,medio,alto){
+  const c=document.getElementById('donut-c');
+  if(!c||typeof Chart==='undefined')return;
+  if(donutChart){donutChart.destroy();donutChart=null;}
+  donutChart=new Chart(c,{type:'doughnut',data:{labels:['Riesgo Bajo','Riesgo Medio','Riesgo Alto'],datasets:[{data:[bajo*100,medio*100,alto*100],backgroundColor:['#22c55e','#eab308','#ef4444'],borderColor:'#0b0b0b',borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}}});
+}
+
+function updateBucketItems(){
+  ['bajo','medio','alto'].forEach(b=>{
+    const el=document.getElementById('items-'+b);
+    if(!el)return;
+    const bAssets=assets.filter(a=>a.bucket===b);
+    if(!bAssets.length){el.innerHTML='<div style="font-size:9px;color:#222;font-style:italic;padding:4px 0">Sin activos asignados</div>';return;}
+    el.innerHTML=bAssets.map(a=>{
+      const color=a.bucket==='bajo'?'#22c55e':a.bucket==='medio'?'#eab308':'#ef4444';
+      return`<div class="bucket-item"><span class="bucket-item-name">${a.ticker} <span class="tag tag-${a.bucket}">${a.tipo}</span></span><span class="bucket-item-val" style="color:${color}">$${fmt(a.capital)}</span></div>`;
+    }).join('');
+  });
+}
+
+function updateScore(){
+  const tot=assets.length;
+  if(!tot){document.getElementById('score-num').textContent='—';document.getElementById('score-ring').setAttribute('stroke-dasharray','0 188.5');return;}
+  let pts=0;
+  const bajo=assets.filter(a=>a.bucket==='bajo').length/tot;
+  const medio=assets.filter(a=>a.bucket==='medio').length/tot;
+  const alto=assets.filter(a=>a.bucket==='alto').length/tot;
+  const pbajo=n(document.getElementById('pct-bajo').value)/100;
+  const pmedio=n(document.getElementById('pct-medio').value)/100;
+  const palto=n(document.getElementById('pct-alto').value)/100;
+  // Diversification
+  const types=new Set(assets.map(a=>a.tipo)).size;
+  if(types>=4)pts+=25;else if(types>=3)pts+=18;else if(types>=2)pts+=10;else pts+=5;
+  // Allocation compliance
+  const alow=Math.abs(bajo-pbajo)<0.1&&Math.abs(medio-pmedio)<0.1&&Math.abs(alto-palto)<0.1;
+  if(alow)pts+=25;else pts+=12;
+  // Stop loss defined
+  const withStop=assets.filter(a=>a.stop>0).length/tot;
+  pts+=Math.round(withStop*25);
+  // Target defined
+  const withTarget=assets.filter(a=>a.target>0).length/tot;
+  pts+=Math.round(withTarget*25);
+  const score=Math.min(100,pts);
+  const color=score>=75?'#22c55e':score>=50?'#eab308':'#ef4444';
+  const grade=score>=80?'Portafolio Sólido':score>=65?'Bien Estructurado':score>=50?'En Construcción':score>=35?'Necesita Ajustes':'Portafolio Débil';
+  const circ=188.5,dash=(score/100)*circ;
+  document.getElementById('score-num').textContent=score;
+  document.getElementById('score-num').style.color=color;
+  document.getElementById('score-ring').setAttribute('stroke-dasharray',`${dash.toFixed(1)} ${circ}`);
+  document.getElementById('score-ring').setAttribute('stroke',color);
+  document.getElementById('score-grade').textContent=grade;
+  document.getElementById('score-grade').style.color=color;
+  document.getElementById('en-activos').textContent=tot;
+  const alerts=assets.filter(a=>a.stop>0&&a.precioActual>0&&a.precioActual<=a.stop).length;
+  document.getElementById('en-alertas').textContent=alerts||'0';
+}
+
+// ── Add Asset ─────────────────────────────────────────────────
+function addAsset(){
+  const ticker=document.getElementById('new-ticker').value.trim().toUpperCase();
+  if(!ticker){alert('Ingresa el ticker o nombre del activo.');return;}
+  const asset={
+    id:Date.now(),ticker,
+    tipo:document.getElementById('new-tipo').value,
+    bucket:document.getElementById('new-bucket').value,
+    capital:n(document.getElementById('new-capital').value),
+    entrada:n(document.getElementById('new-entrada').value),
+    target:n(document.getElementById('new-target').value),
+    stop:n(document.getElementById('new-stop').value),
+    tesis:document.getElementById('new-tesis').value,
+    precioActual:n(document.getElementById('new-entrada').value),
+    fecha:new Date().toLocaleDateString('es-EC')
+  };
+  assets.push(asset);
+  ['new-ticker','new-capital','new-entrada','new-target','new-stop','new-tesis'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  updateBucketItems();updateScore();
+  const rend=calcTotalRend();
+  document.getElementById('en-rend').textContent=rend!==null?(rend>=0?'+':'')+rend.toFixed(1)+'%':'—';
+  if(document.getElementById('tab-seguimiento').classList.contains('active'))renderSeguimiento();
+}
+
+function calcTotalRend(){
+  const withPrices=assets.filter(a=>a.precioActual>0&&a.entrada>0);
+  if(!withPrices.length)return null;
+  const totalCap=withPrices.reduce((s,a)=>s+a.capital,0);
+  const totalPnL=withPrices.reduce((s,a)=>s+a.capital*((a.precioActual-a.entrada)/a.entrada),0);
+  return totalCap?(totalPnL/totalCap)*100:null;
+}
+
+// ── Seguimiento ───────────────────────────────────────────────
+function updatePrices(){
+  const rows=document.querySelectorAll('.precio-actual-input');
+  rows.forEach(r=>{
+    const id=parseInt(r.dataset.id);const a=assets.find(x=>x.id===id);
+    if(a)a.precioActual=n(r.value);
+  });
+  updateScore();
+  const rend=calcTotalRend();
+  document.getElementById('en-rend').textContent=rend!==null?(rend>=0?'+':'')+rend.toFixed(1)+'%':'—';
+  renderSeguimiento();
+}
+
+function renderSeguimiento(){
+  const el=document.getElementById('seguimiento-table');
+  if(!assets.length){el.innerHTML=`<div class="empty-state"><i class="ti ti-database empty-icon"></i><div class="empty-title">Sin activos</div><div class="empty-sub">Agrega activos en la pestaña <span class="empty-acc">Portafolio</span></div></div>`;return;}
+  const bcard=document.getElementById('benchmark-card');if(bcard)bcard.style.display='block';
+  el.innerHTML=`<table class="asset-table">
+    <thead><tr>
+      <th>Activo</th><th>Tipo</th><th>Bucket</th><th>Capital</th>
+      <th>Entrada ($)</th><th>Precio Actual ($)</th><th>Target ($)</th><th>Stop Loss ($)</th>
+      <th>P&amp;L %</th><th>Estado</th><th></th>
+    </tr></thead>
+    <tbody>${assets.map(a=>{
+      const pnl=a.entrada>0?((a.precioActual-a.entrada)/a.entrada)*100:0;
+      const isAlert=a.stop>0&&a.precioActual>0&&a.precioActual<=a.stop;
+      const isTarget=a.target>0&&a.precioActual>=a.target;
+      let estado,estadoClass;
+      if(isAlert){estado='▼ Stop Loss';estadoClass='sig-sell';}
+      else if(isTarget){estado='▲ Target';estadoClass='sig-buy';}
+      else{estado='● Mantener';estadoClass='sig-hold';}
+      const bucketColor=a.bucket==='bajo'?'#22c55e':a.bucket==='medio'?'#eab308':'#ef4444';
+      return`<tr class="${isAlert?'alert-row':''}">
+        <td><div class="asset-ticker">${a.ticker}</div><div class="asset-name-sub">${a.tesis.substring(0,30)||'—'}</div></td>
+        <td><span class="tag tag-${a.bucket}">${a.tipo}</span></td>
+        <td><span style="color:${bucketColor};font-size:9px;font-weight:700;font-family:'Montserrat',sans-serif;text-transform:uppercase">${a.bucket}</span></td>
+        <td style="color:#555">$${fmt(a.capital)}</td>
+        <td style="color:#444;font-family:'Courier New',monospace">$${fix(a.entrada,2)}</td>
+        <td><input type="number" class="precio-actual-input" data-id="${a.id}" value="${a.precioActual||''}" placeholder="Precio actual" style="background:#111;border:1px solid #1a1a1a;color:#e2e0da;padding:4px 7px;border-radius:3px;font-family:'Nunito Sans',sans-serif;font-size:11px;width:90px;outline:none"></td>
+        <td style="color:#2a2a2a;font-family:'Courier New',monospace">${a.target?'$'+fix(a.target,2):'—'}</td>
+        <td style="color:#2a2a2a;font-family:'Courier New',monospace">${a.stop?'$'+fix(a.stop,2):'—'}</td>
+        <td class="${pnl>=0?'pnl-pos':'pnl-neg'}">${pnl>=0?'+':''}${pnl.toFixed(2)}%</td>
+        <td><span class="${estadoClass}">${estado}</span></td>
+        <td><button onclick="removeAsset(${a.id})" style="background:none;border:none;color:#333;cursor:pointer;font-size:12px;padding:4px" title="Eliminar"><i class="ti ti-trash"></i></button></td>
+      </tr>`;
+    }).join('')}</tbody>
+  </table>`;
+  const bcontent=document.getElementById('benchmark-content');
+  if(bcontent){
+    const rend=calcTotalRend();
+    bcontent.innerHTML=`<div class="mg3">
+      <div style="background:#0f0f0f;border:1px solid #1a1a1a;border-radius:5px;padding:12px">
+        <div style="font-size:7px;text-transform:uppercase;letter-spacing:0.12em;color:#333;font-weight:700;font-family:'Montserrat',sans-serif;margin-bottom:6px">Rendimiento Portafolio</div>
+        <div style="font-size:22px;font-weight:700;font-family:'Montserrat',sans-serif;color:${rend>=0?'#22c55e':'#ef4444'}">${rend!==null?(rend>=0?'+':'')+rend.toFixed(2)+'%':'—'}</div>
+      </div>
+      <div style="background:#0f0f0f;border:1px solid #1a1a1a;border-radius:5px;padding:12px">
+        <div style="font-size:7px;text-transform:uppercase;letter-spacing:0.12em;color:#333;font-weight:700;font-family:'Montserrat',sans-serif;margin-bottom:6px">Total Posiciones</div>
+        <div style="font-size:22px;font-weight:700;font-family:'Montserrat',sans-serif;color:#e2e0da">${assets.length}</div>
+      </div>
+      <div style="background:#0f0f0f;border:1px solid #1a1a1a;border-radius:5px;padding:12px">
+        <div style="font-size:7px;text-transform:uppercase;letter-spacing:0.12em;color:#333;font-weight:700;font-family:'Montserrat',sans-serif;margin-bottom:6px">Alertas Activas</div>
+        <div style="font-size:22px;font-weight:700;font-family:'Montserrat',sans-serif;color:#ef4444">${assets.filter(a=>a.stop>0&&a.precioActual>0&&a.precioActual<=a.stop).length}</div>
+      </div>
+    </div>`;
+  }
+}
+
+function removeAsset(id){
+  assets=assets.filter(a=>a.id!==id);
+  updateBucketItems();updateScore();renderSeguimiento();
+}
+
+// ── Stock Analysis ────────────────────────────────────────────
+function calcStock(){
+  const ticker=document.getElementById('s-ticker').value.toUpperCase()||'—';
+  const precio=n(document.getElementById('s-precio').value);
+  const eps=n(document.getElementById('s-eps').value);
+  const pe=n(document.getElementById('s-pe').value);
+  const roe=n(document.getElementById('s-roe').value);
+  const fcf=n(document.getElementById('s-fcf').value);
+  const beta=n(document.getElementById('s-beta').value)||1;
+  const bv=n(document.getElementById('s-bv').value);
+  const peHist=n(document.getElementById('s-pe-hist').value)||25;
+  const rate=n(document.getElementById('s-dcf-rate').value)/100||0.10;
+  const growth=n(document.getElementById('s-fcf-growth').value)/100||0.08;
+  const years=n(document.getElementById('s-dcf-years').value)||10;
+  // Graham Number
+  const graham=eps>0&&bv>0?Math.sqrt(22.5*eps*bv):0;
+  // DCF simplificado
+  let dcf=0;
+  for(let i=1;i<=years;i++)dcf+=fcf*Math.pow(1+growth,i)/Math.pow(1+rate,i);
+  const tvDenom=(rate-0.03)*Math.pow(1+rate,years);
+  const tv=tvDenom!==0?fcf*Math.pow(1+growth,years)*(1+0.03)/tvDenom:fcf*years*2;
+  dcf+=tv;
+  // Múltiplo P/E histórico
+  const valPE=eps*peHist;
+  // Margen de seguridad
+  const intrinsico=graham>0&&dcf>0?(graham+dcf+valPE)/3:dcf||valPE;
+  const margen=intrinsico>0?((intrinsico-precio)/intrinsico)*100:0;
+  const signal=margen>=30?{s:'Comprar',c:'#22c55e',cl:'sig-buy'}:margen>=0?{s:'Mantener',c:'#eab308',cl:'sig-hold'}:{s:'Caro / Esperar',c:'#ef4444',cl:'sig-sell'};
+  const riskSig=beta<=1?{c:'#22c55e',l:'Bajo'}:beta<=1.5?{c:'#eab308',l:'Moderado'}:{c:'#ef4444',l:'Alto'};
+  document.getElementById('stock-result').innerHTML=`
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+    <div style="font-family:'Montserrat',sans-serif;font-size:18px;font-weight:800;color:#e2e0da">${ticker}</div>
+    <span class="${signal.cl}">${signal.s}</span>
+  </div>
+  <div class="mg4" style="margin-bottom:12px">
+    <div class="mc" style="border-top:2px solid ${graham>precio?'#22c55e':'#ef4444'}">
+      <div class="mc-name">Graham Number</div>
+      <div class="mc-val" style="color:${graham>precio?'#22c55e':'#ef4444'}">$${fix(graham,2)}</div>
+      <div class="mc-desc"><b>Precio justo</b> según Graham (√22.5×EPS×BV). Precio actual: $${fix(precio,2)}</div>
+    </div>
+    <div class="mc" style="border-top:2px solid ${dcf>precio?'#22c55e':'#ef4444'}">
+      <div class="mc-name">DCF — Valor Intrínseco</div>
+      <div class="mc-val" style="color:${dcf>precio?'#22c55e':'#ef4444'}">$${fix(dcf,2)}</div>
+      <div class="mc-desc"><b>Valor presente</b> de flujos de caja futuros a ${(rate*100).toFixed(0)}% descuento, ${years} años.</div>
+    </div>
+    <div class="mc" style="border-top:2px solid ${valPE>precio?'#22c55e':'#ef4444'}">
+      <div class="mc-name">Múltiplo P/E Histórico</div>
+      <div class="mc-val" style="color:${valPE>precio?'#22c55e':'#ef4444'}">$${fix(valPE,2)}</div>
+      <div class="mc-desc"><b>Precio justo</b> aplicando el P/E histórico promedio de ${peHist}x al EPS actual.</div>
+    </div>
+    <div class="mc" style="border-top:2px solid ${margen>=30?'#22c55e':margen>=0?'#eab308':'#ef4444'}">
+      <div class="mc-name">Margen de Seguridad</div>
+      <div class="mc-val" style="color:${margen>=30?'#22c55e':margen>=0?'#eab308':'#ef4444'}">${margen.toFixed(1)}%</div>
+      <div class="mc-desc"><b>Descuento</b> vs valor intrínseco promedio. Buffett exige mínimo 30%.</div>
+    </div>
+  </div>
+  <div class="mg3">
+    <div class="mc" style="border-top:2px solid ${roe>=15?'#22c55e':roe>=8?'#eab308':'#ef4444'}">
+      <div class="mc-name">ROE</div>
+      <div class="mc-val" style="color:${roe>=15?'#22c55e':roe>=8?'#eab308':'#ef4444'}">${roe.toFixed(1)}%</div>
+      <div class="mc-desc"><b>Rentabilidad</b> sobre el patrimonio. &gt;15% indica ventaja competitiva sostenible.</div>
+    </div>
+    <div class="mc" style="border-top:2px solid ${pe<peHist*0.9?'#22c55e':pe<peHist*1.1?'#eab308':'#ef4444'}">
+      <div class="mc-name">P/E Actual vs Histórico</div>
+      <div class="mc-val" style="color:${pe<peHist*0.9?'#22c55e':pe<peHist*1.1?'#eab308':'#ef4444'}">${pe.toFixed(1)}x</div>
+      <div class="mc-desc"><b>Cotiza</b> ${pe<peHist?'por debajo':'por encima'} de su múltiplo histórico de ${peHist}x. ${pe<peHist?'Señal positiva.':'Señal de alerta.'}</div>
+    </div>
+    <div class="mc" style="border-top:2px solid ${riskSig.c}">
+      <div class="mc-name">Beta — Riesgo Sistémico</div>
+      <div class="mc-val" style="color:${riskSig.c}">${fix(beta,2)}</div>
+      <div class="mc-desc"><b>Volatilidad relativa</b> al mercado. Riesgo ${riskSig.l}. Por cada 1% que se mueva el S&P 500, este activo se mueve ${fix(beta,2)}%.</div>
+    </div>
+  </div>`;
+}
+
+// ── ETF Analysis ──────────────────────────────────────────────
+function calcETF(){
+  const ticker=document.getElementById('e-ticker').value.toUpperCase()||'—';
+  const expense=n(document.getElementById('e-expense').value);
+  const r1=n(document.getElementById('e-r1').value);
+  const r3=n(document.getElementById('e-r3').value);
+  const r5=n(document.getElementById('e-r5').value);
+  const sharpe=n(document.getElementById('e-sharpe').value);
+  const div=n(document.getElementById('e-div').value);
+  const beta=n(document.getElementById('e-beta').value)||1;
+  const holdings=n(document.getElementById('e-holdings').value);
+  const benchmark=document.getElementById('e-benchmark').value||'índice';
+  const sigR1=r1>=20?{c:'#22c55e',s:'▲ Excelente'}:r1>=10?{c:'#eab308',s:'● Moderado'}:{c:'#ef4444',s:'▼ Bajo'};
+  const sigExp=expense<=0.1?{c:'#22c55e',s:'▲ Muy bajo'}:expense<=0.5?{c:'#eab308',s:'● Aceptable'}:{c:'#ef4444',s:'▼ Alto'};
+  const sigSharpe=sharpe>=1.5?{c:'#22c55e',s:'▲ Excelente'}:sharpe>=0.8?{c:'#eab308',s:'● Bueno'}:{c:'#ef4444',s:'▼ Bajo'};
+  const signal=r1>=15&&expense<=0.5&&sharpe>=1?{s:'Comprar',cl:'sig-buy'}:r1>=8&&expense<=1?{s:'Mantener',cl:'sig-hold'}:{s:'Evaluar alternativas',cl:'sig-sell'};
+  document.getElementById('etf-result').innerHTML=`
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+    <div style="font-family:'Montserrat',sans-serif;font-size:18px;font-weight:800;color:#e2e0da">${ticker} — Replica ${benchmark}</div>
+    <span class="${signal.cl}">${signal.s}</span>
+  </div>
+  <div class="mg4">
+    <div class="mc" style="border-top:2px solid ${sigR1.c}">
+      <div class="mc-name">Rendimiento 1 Año</div>
+      <div class="mc-val" style="color:${sigR1.c}">${r1.toFixed(1)}%</div>
+      <div class="mc-desc">${sigR1.s}. 3 años: ${r3.toFixed(1)}% | 5 años: ${r5.toFixed(1)}%</div>
+    </div>
+    <div class="mc" style="border-top:2px solid ${sigExp.c}">
+      <div class="mc-name">Expense Ratio</div>
+      <div class="mc-val" style="color:${sigExp.c}">${expense.toFixed(2)}%</div>
+      <div class="mc-desc">${sigExp.s}. Costo anual que resta directamente al rendimiento.</div>
+    </div>
+    <div class="mc" style="border-top:2px solid ${sigSharpe.c}">
+      <div class="mc-name">Sharpe Ratio</div>
+      <div class="mc-val" style="color:${sigSharpe.c}">${fix(sharpe,2)}</div>
+      <div class="mc-desc">Rendimiento ajustado por riesgo. &gt;1.0 es aceptable, &gt;1.5 es excelente.</div>
+    </div>
+    <div class="mc" style="border-top:2px solid #7eb8ff">
+      <div class="mc-name">Dividend Yield</div>
+      <div class="mc-val" style="color:#7eb8ff">${div.toFixed(2)}%</div>
+      <div class="mc-desc">${holdings} holdings. Diversificación ${holdings>=200?'alta':holdings>=50?'moderada':'baja'}. Beta: ${fix(beta,2)}</div>
+    </div>
+  </div>`;
+}
+
+// ── Crypto Analysis ───────────────────────────────────────────
+function calcCrypto(){
+  const ticker=document.getElementById('c-ticker').value||'—';
+  const precio=n(document.getElementById('c-precio').value);
+  const mcap=n(document.getElementById('c-mcap').value);
+  const dom=n(document.getElementById('c-dom').value);
+  const vol=n(document.getElementById('c-vol').value);
+  const ath=n(document.getElementById('c-ath').value);
+  const fg=n(document.getElementById('c-fg').value);
+  const rsi=n(document.getElementById('c-rsi').value);
+  const ciclo=document.getElementById('c-ciclo').value;
+  const soporte=n(document.getElementById('c-soporte').value);
+  const resist=n(document.getElementById('c-resist').value);
+  const athPct=ath>0?((precio-ath)/ath)*100:0;
+  const sigFG=fg<=25?{c:'#22c55e',l:'Miedo extremo — zona de compra histórica'}:fg<=45?{c:'#eab308',l:'Miedo — posible acumulación'}:fg<=75?{c:'#eab308',l:'Avaricia — precaución'}:{c:'#ef4444',l:'Avaricia extrema — zona de riesgo'};
+  const sigRSI=rsi<=30?{c:'#22c55e',l:'Sobrevendido'}:rsi<=45?{c:'#22c55e',l:'Zona de acumulación'}:rsi<=70?{c:'#eab308',l:'Neutral'}:{c:'#ef4444',l:'Sobrecomprado'};
+  const volRatio=mcap>0?(vol/mcap)*100:0;
+  const isBuy=fg<=45&&rsi<=50&&(ciclo==='Acumulación'||ciclo==='Tendencia alcista');
+  const signal=isBuy?{s:'Posición favorable',cl:'sig-buy'}:fg>=75||rsi>=70?{s:'Reducir exposición',cl:'sig-sell'}:{s:'Observar',cl:'sig-hold'};
+  document.getElementById('crypto-result').innerHTML=`
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+    <div style="font-family:'Montserrat',sans-serif;font-size:18px;font-weight:800;color:#e2e0da">${ticker} — ${ciclo}</div>
+    <span class="${signal.cl}">${signal.s}</span>
+  </div>
+  <div class="mg4">
+    <div class="mc" style="border-top:2px solid ${sigFG.c}">
+      <div class="mc-name">Fear &amp; Greed Index</div>
+      <div class="mc-val" style="color:${sigFG.c}">${fg}</div>
+      <div class="mc-desc">${sigFG.l}. Contrarian: compra cuando hay miedo, vende cuando hay avaricia.</div>
+    </div>
+    <div class="mc" style="border-top:2px solid ${sigRSI.c}">
+      <div class="mc-name">RSI (14 días)</div>
+      <div class="mc-val" style="color:${sigRSI.c}">${rsi}</div>
+      <div class="mc-desc">${sigRSI.l}. Soporte: $${fmt(soporte)} | Resistencia: $${fmt(resist)}</div>
+    </div>
+    <div class="mc" style="border-top:2px solid ${athPct>=-20?'#eab308':'#22c55e'}">
+      <div class="mc-name">Distancia al ATH</div>
+      <div class="mc-val" style="color:${athPct>=-20?'#eab308':'#22c55e'}">${athPct.toFixed(1)}%</div>
+      <div class="mc-desc">ATH: $${fmt(ath)}. ${athPct>=-20?'Cerca del máximo — mayor riesgo de corrección':'Descuento significativo desde máximos'}</div>
+    </div>
+    <div class="mc" style="border-top:2px solid ${volRatio>=5?'#22c55e':'#eab308'}">
+      <div class="mc-name">Volumen / Market Cap</div>
+      <div class="mc-val" style="color:${volRatio>=5?'#22c55e':'#eab308'}">${volRatio.toFixed(1)}%</div>
+      <div class="mc-desc">Market Cap: $${fmt(mcap)}M. Dominancia BTC: ${dom.toFixed(1)}%. ${volRatio>=5?'Liquidez alta':'Liquidez baja'}</div>
+    </div>
+  </div>`;
+}
+
+// ── Commodity Analysis ────────────────────────────────────────
+function calcCommodity(){
+  const nombre=document.getElementById('co-nombre').value||'Commodity';
+  const precio=n(document.getElementById('co-precio').value);
+  const p1y=n(document.getElementById('co-p1y').value);
+  const p5y=n(document.getElementById('co-p5y').value);
+  const tendencia=document.getElementById('co-tendencia').value;
+  const corr=document.getElementById('co-corr').value;
+  const driver=document.getElementById('co-driver').value||'—';
+  const peso=n(document.getElementById('co-peso').value);
+  const r1y=p1y>0?((precio-p1y)/p1y)*100:0;
+  const r5y=p5y>0?((precio-p5y)/p5y)*100:0;
+  const isBull=tendencia.includes('Alcista');
+  const isHedge=corr.includes('Negativa');
+  const signal=isBull&&isHedge?{s:'Posición estratégica',cl:'sig-buy'}:isBull?{s:'Seguir tendencia',cl:'sig-hold'}:{s:'Esperar reversión',cl:'sig-sell'};
+  document.getElementById('commodity-result').innerHTML=`
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+    <div style="font-family:'Montserrat',sans-serif;font-size:18px;font-weight:800;color:#e2e0da">${nombre}</div>
+    <span class="${signal.cl}">${signal.s}</span>
+  </div>
+  <div class="mg4">
+    <div class="mc" style="border-top:2px solid ${r1y>=0?'#22c55e':'#ef4444'}">
+      <div class="mc-name">Rendimiento 1 Año</div>
+      <div class="mc-val" style="color:${r1y>=0?'#22c55e':'#ef4444'}">${r1y>=0?'+':''}${r1y.toFixed(1)}%</div>
+      <div class="mc-desc">Precio actual: $${fmt(precio)} | Hace 1 año: $${fmt(p1y)}</div>
+    </div>
+    <div class="mc" style="border-top:2px solid ${r5y>=0?'#22c55e':'#ef4444'}">
+      <div class="mc-name">Rendimiento 5 Años</div>
+      <div class="mc-val" style="color:${r5y>=0?'#22c55e':'#ef4444'}">${r5y>=0?'+':''}${r5y.toFixed(1)}%</div>
+      <div class="mc-desc">Hace 5 años: $${fmt(p5y)} | CAGR: ${p5y>0?((Math.pow(precio/p5y,1/5)-1)*100>0?'+':'')+(((Math.pow(precio/p5y,1/5)-1)*100).toFixed(1))+'%/año':'—'}</div>
+    </div>
+    <div class="mc" style="border-top:2px solid ${isHedge?'#22c55e':'#eab308'}">
+      <div class="mc-name">Correlación vs S&P 500</div>
+      <div class="mc-val" style="color:${isHedge?'#22c55e':'#eab308'}">${corr.split(' ')[0]}</div>
+      <div class="mc-desc">${isHedge?'Activo refugio — reduce riesgo del portafolio en caídas del mercado':'Correlación positiva — no protege en caídas'}</div>
+    </div>
+    <div class="mc" style="border-top:2px solid #7eb8ff">
+      <div class="mc-name">Peso en Portafolio</div>
+      <div class="mc-val" style="color:#7eb8ff">${peso}%</div>
+      <div class="mc-desc">Driver: ${driver}. Tendencia actual: ${tendencia}.</div>
+    </div>
+  </div>`;
+}
+
+// ── Opportunity Scanner IA ────────────────────────────────────
+async function scanOpportunity(){
+  const key=document.getElementById('api-key').value.trim();
+  if(!key){alert('Ingresa tu API Key en el sidebar.');return;}
+  const ticker=document.getElementById('opp-ticker').value.trim();
+  if(!ticker){alert('Ingresa el ticker o nombre del activo.');return;}
+  const precio=n(document.getElementById('opp-precio').value);
+  const tipo=document.getElementById('opp-tipo').value;
+  const perfil=document.getElementById('opp-perfil').value;
+  const horizonte=document.getElementById('opp-horizonte').value;
+  const capital=n(document.getElementById('opp-capital').value);
+  const stop=n(document.getElementById('opp-stop').value);
+  const contexto=document.getElementById('opp-contexto').value;
+  const el=document.getElementById('opp-result');
+  el.innerHTML=`<div class="opp-result"><div class="empty-state"><i class="ti ti-radar empty-icon" style="animation:pulse 1s ease-in-out infinite"></i><div class="empty-title" style="color:#22c55e">Escaneando ${ticker}...</div><div class="empty-sub">Analizando métricas, ciclo de mercado y perfil del inversor</div></div></div>`;
+  const prompt=`Eres un analista de inversiones senior de Fyntrum. Analiza esta oportunidad de inversión para un cliente ${perfil} con horizonte ${horizonte}.
+
+ACTIVO: ${ticker} | Tipo: ${tipo} | Precio actual: $${precio} | Capital disponible: $${capital} | Stop loss máx: ${stop}%
+${contexto?`Contexto adicional: ${contexto}`:''}
+
+Responde SOLO en este formato JSON exacto (sin texto adicional, sin backticks):
+{"señal":"Comprar","entrada":0,"target":0,"stop":0,"horizonte":"","riesgoRecompensa":"","tesis":""}
+
+señal: "Comprar", "Mantener" o "Esperar"
+entrada: precio de entrada sugerido en número
+target: precio objetivo en número  
+stop: precio de stop loss en número
+horizonte: tiempo estimado
+riesgoRecompensa: ratio riesgo/recompensa ej "1:3"
+tesis: tesis de inversión en 80 palabras máximo, en español, específica y con datos`;
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:400,messages:[{role:'user',content:prompt}]})});
+    const data=await res.json();
+    const raw=data.content?.find(b=>b.type==='text')?.text||'{}';
+    let r;
+    try{r=JSON.parse(raw.replace(/```json|```/g,'').trim());}catch(e){r={señal:'Esperar',entrada:precio,target:0,stop:0,horizonte:'—',riesgoRecompensa:'—',tesis:raw};}
+    const sigClass=r.señal==='Comprar'?'sig-buy':r.señal==='Mantener'?'sig-hold':'sig-sell';
+    const sigColor=r.señal==='Comprar'?'#22c55e':r.señal==='Mantener'?'#eab308':'#ef4444';
+    const posSize=capital&&stop&&r.entrada?Math.min(capital,capital*stop/100/(r.entrada*(stop/100)||1)):'—';
+    el.innerHTML=`<div class="opp-result">
+      <div class="opp-header">
+        <div style="display:flex;align-items:center;gap:12px">
+          <div class="opp-ticker">${ticker.toUpperCase()}</div>
+          <span class="tag tag-${tipo==='Acción'?'bajo':tipo==='ETF'?'bajo':tipo==='Crypto'?'alto':'medio'}">${tipo}</span>
+        </div>
+        <span class="${sigClass}" style="font-size:12px;padding:6px 14px">${r.señal==='Comprar'?'▲':'▼'} ${r.señal}</span>
+      </div>
+      <div class="opp-grid">
+        <div class="opp-item"><div class="opp-item-lbl">Precio de Entrada</div><div class="opp-item-val" style="color:var(--g1)">$${fix(r.entrada,2)}</div></div>
+        <div class="opp-item"><div class="opp-item-lbl">Target Price</div><div class="opp-item-val" style="color:#7eb8ff">$${fix(r.target,2)}</div></div>
+        <div class="opp-item"><div class="opp-item-lbl">Stop Loss</div><div class="opp-item-val" style="color:#ef4444">$${fix(r.stop,2)}</div></div>
+        <div class="opp-item"><div class="opp-item-lbl">Horizonte</div><div class="opp-item-val">${r.horizonte}</div></div>
+        <div class="opp-item"><div class="opp-item-lbl">Riesgo / Recompensa</div><div class="opp-item-val" style="color:${sigColor}">${r.riesgoRecompensa}</div></div>
+        <div class="opp-item"><div class="opp-item-lbl">Capital sugerido</div><div class="opp-item-val">$${fmt(capital)}</div></div>
+      </div>
+      <div class="opp-thesis"><b style="color:#e2e0da;font-family:'Montserrat',sans-serif;font-size:9px;text-transform:uppercase;letter-spacing:0.1em">Tesis de Inversión — </b>${r.tesis}</div>
+    </div>`;
+  }catch(e){el.innerHTML=`<div class="opp-result"><div style="color:#ef4444;font-size:12px">Error: ${e.message}</div></div>`;}
+}
+
+// ── Monthly Report ────────────────────────────────────────────
+async function genInforme(){
+  const key=document.getElementById('api-key').value.trim();
+  if(!key){alert('Ingresa tu API Key en el sidebar.');return;}
+  const mes=document.getElementById('inf-mes').value||'—';
+  const rend=n(document.getElementById('inf-rend').value);
+  const bench=n(document.getElementById('inf-bench').value);
+  const ops=n(document.getElementById('inf-ops').value);
+  const mejor=document.getElementById('inf-mejor').value||'—';
+  const peor=document.getElementById('inf-peor').value||'—';
+  const cliente=document.getElementById('cliente-nombre').value||'cliente';
+  const politica=`Horizonte: ${document.getElementById('horizonte').value} | Retorno esperado: ${document.getElementById('pol-retorno').value}% | Stop global: ${document.getElementById('pol-stop').value}%`;
+  const txt=document.getElementById('ai-informe');
+  if(txt){txt.textContent='Generando informe mensual...';txt.style.color='#3a3a3a';txt.style.fontStyle='italic';}
+  const regen=document.getElementById('inf-btn-regen');if(regen)regen.style.display='none';
+  const prompt=`Eres el asesor de inversiones de Fyntrum. Genera el informe mensual de asesoría de portafolio para ${cliente} en español (máx 300 palabras). Tono profesional pero cercano, orientado al cliente no técnico.
+
+Datos del mes de ${mes}:
+- Rendimiento portafolio: ${rend>=0?'+':''}${rend.toFixed(1)}% vs benchmark ${bench>=0?'+':''}${bench.toFixed(1)}%
+- Operaciones realizadas: ${ops}
+- Mejor activo: ${mejor}
+- Activo más débil: ${peor}
+- Política del cliente: ${politica}
+- Activos en portafolio: ${assets.map(a=>a.ticker).join(', ')||'—'}
+
+Estructura exacta:
+1) Resumen del mes (2 oraciones con los números concretos)
+2) Lo que funcionó y por qué
+3) Lo que no funcionó y qué haremos
+4) 3 acciones concretas para el próximo mes
+5) Cierre motivacional (1 oración)`;
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:600,messages:[{role:'user',content:prompt}]})});
+    const data=await res.json();
+    const text=data.content?.find(b=>b.type==='text')?.text;
+    if(txt){txt.textContent=text||'Sin respuesta.';txt.style.color='#888';txt.style.fontStyle='normal';}
+    if(regen)regen.style.display='inline-flex';
+  }catch(e){if(txt)txt.textContent='Error: '+e.message;}
+}
+
+// ── AI Assistant ──────────────────────────────────────────────
+function toggleAsst(open){
+  asstOpen=open;
+  document.getElementById('asst-panel').classList.toggle('open',open);
+  document.getElementById('asst-toggle').classList.toggle('hidden',open);
+  document.getElementById('pia-main').style.marginRight=open?'316px':'0';
+}
+
+function buildCtx(){
+  const cap=document.getElementById('capital-total').value;
+  const bajo=document.getElementById('pct-bajo').value;
+  const medio=document.getElementById('pct-medio').value;
+  const alto=document.getElementById('pct-alto').value;
+  const cliente=document.getElementById('cliente-nombre').value;
+  return`Cliente: ${cliente}|Capital: $${cap}|Distribución: ${bajo}% bajo/${medio}% medio/${alto}% alto|Horizonte: ${document.getElementById('horizonte').value}|Activos: ${assets.map(a=>`${a.ticker}(${a.bucket})`).join(',')||'ninguno'}|Stop global: ${document.getElementById('pol-stop').value}%|Retorno esperado: ${document.getElementById('pol-retorno').value}%`;
+}
+
+async function sendMsg(){
+  const inp=document.getElementById('asst-input');
+  const txt=inp?.value?.trim();
+  if(!txt||isTyping)return;
+  const key=document.getElementById('api-key').value.trim();
+  if(!key){addMsg('asst','Ingresa tu API Key en el sidebar para usar el asistente.');return;}
+  inp.value='';addMsg('user',txt);
+  chatHistory.push({role:'user',content:txt});
+  isTyping=true;const send=document.getElementById('asst-send');if(send)send.disabled=true;
+  const typingEl=document.getElementById('asst-typing');if(typingEl)typingEl.style.display='flex';
+  scrollMsgs();
+  const sys=`Eres el asistente de inversiones de Fyntrum. Contexto del portafolio:\n${buildCtx()}\nResponde en español, conciso y práctico. Aplica principios de value investing y gestión de riesgo. Máx 130 palabras.`;
+  try{
+    const msgs=chatHistory.length>12?chatHistory.slice(-12):chatHistory;
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:400,system:sys,messages:msgs})});
+    const data=await res.json();
+    if(typingEl)typingEl.style.display='none';
+    const text=data.content?.find(b=>b.type==='text')?.text;
+    if(text){chatHistory.push({role:'assistant',content:text});addMsg('asst',text);}
+    else addMsg('asst','Error: '+(data.error?.message||'Sin respuesta'));
+  }catch(e){if(typingEl)typingEl.style.display='none';addMsg('asst','Error: '+e.message);}
+  isTyping=false;if(send)send.disabled=false;
+}
+
+function addMsg(role,text){
+  const msgs=document.getElementById('asst-msgs');if(!msgs)return;
+  const div=document.createElement('div');div.className=`msg msg-${role}`;
+  const lbl=document.createElement('div');lbl.className='msg-label';lbl.textContent=role==='asst'?'Asistente':'Analista';
+  const bubble=document.createElement('div');bubble.className='msg-bubble';bubble.textContent=text||'';
+  div.appendChild(lbl);div.appendChild(bubble);msgs.appendChild(div);scrollMsgs();
+}
+function scrollMsgs(){const m=document.getElementById('asst-msgs');if(m)m.scrollTop=m.scrollHeight;}
+function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
+
+// ── Save / Export / Import ────────────────────────────────────
+function savePolitica(btn){
+  if(btn){const orig=btn.innerHTML;btn.innerHTML='<i class="ti ti-check"></i>Guardada';setTimeout(()=>btn.innerHTML=orig,1800);}
+}
+
+function saveClient(btn){
+  const nombre=document.getElementById('cliente-nombre').value||'cliente';
+  const data={nombre,capital:document.getElementById('capital-total').value,pctBajo:document.getElementById('pct-bajo').value,pctMedio:document.getElementById('pct-medio').value,pctAlto:document.getElementById('pct-alto').value,horizonte:document.getElementById('horizonte').value,assets,ts:new Date().toLocaleDateString('es-EC')};
+  try{localStorage.setItem('fyntrum_pia_'+nombre,JSON.stringify(data));}catch(e){}
+  const hist=document.getElementById('hist-list');
+  if(hist){
+    const prev=hist.querySelector(`[data-nombre="${nombre}"]`);
+    if(!prev){const d=document.createElement('div');d.className='hist-item';d.dataset.nombre=nombre;d.onclick=()=>loadClient(nombre);d.innerHTML=`<div class="hist-name">${nombre}</div><div class="hist-meta">${data.capital?'$'+data.capital:''} · ${data.ts}</div>`;hist.appendChild(d);}
+  }
+  if(btn){const orig=btn.innerHTML;btn.innerHTML='<i class="ti ti-check"></i>Guardado';setTimeout(()=>btn.innerHTML=orig,1800);}
+}
+
+function loadClient(nombre){
+  try{
+    const d=JSON.parse(localStorage.getItem('fyntrum_pia_'+nombre));
+    if(!d)return;
+    document.getElementById('cliente-nombre').value=d.nombre||'';
+    document.getElementById('capital-total').value=d.capital||'';
+    document.getElementById('pct-bajo').value=d.pctBajo||40;
+    document.getElementById('pct-medio').value=d.pctMedio||30;
+    document.getElementById('pct-alto').value=d.pctAlto||30;
+    document.getElementById('horizonte').value=d.horizonte||'3-5 años';
+    assets=d.assets||[];
+    updateBuckets();renderSeguimiento();
+  }catch(e){}
+}
+
+function exportData(){
+  const nombre=document.getElementById('cliente-nombre').value||'cliente';
+  const data={source:'Fyntrum PIA v1.0',exportDate:new Date().toISOString(),cliente:{nombre,capital:document.getElementById('capital-total').value,pctBajo:document.getElementById('pct-bajo').value,pctMedio:document.getElementById('pct-medio').value,pctAlto:document.getElementById('pct-alto').value,horizonte:document.getElementById('horizonte').value},assets};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`Fyntrum_PIA_${nombre}.json`;a.click();URL.revokeObjectURL(url);
+}
+
+function importData(ev){
+  const file=ev.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const d=JSON.parse(e.target.result);
+      if(d.cliente){
+        document.getElementById('cliente-nombre').value=d.cliente.nombre||'';
+        document.getElementById('capital-total').value=d.cliente.capital||'';
+        document.getElementById('pct-bajo').value=d.cliente.pctBajo||40;
+        document.getElementById('pct-medio').value=d.cliente.pctMedio||30;
+        document.getElementById('pct-alto').value=d.cliente.pctAlto||30;
+        document.getElementById('horizonte').value=d.cliente.horizonte||'3-5 años';
+      }
+      assets=d.assets||[];
+      updateBuckets();renderSeguimiento();
+    }catch(err){alert('Archivo no válido.');}
+  };
+  reader.readAsText(file);
+}
+
+// Init
+document.getElementById('fecha-disp').textContent=new Date().toLocaleDateString('es-EC');
+updateBuckets();
+</script>
+</body>
+</html>
