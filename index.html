@@ -447,8 +447,8 @@ body.cliente-mode .cliente-only{display:block!important}
           <div class="q-step-title">Define el objetivo financiero concreto</div>
           <div class="q-step-desc">Establece la meta para proyectar la viabilidad del plan con el capital declarado y el retorno esperado.</div>
           <div class="q-2col" style="margin-bottom:10px">
-            <div class="q-field"><label>Monto objetivo ($)</label><input id="q-meta-monto" type="number" placeholder="500,000" min="0"></div>
-            <div class="q-field"><label>Plazo para alcanzarlo (años)</label><input id="q-meta-anios" type="number" placeholder="10" min="1" max="50" value="10"></div>
+            <div class="q-field"><label>Monto objetivo ($)</label><input id="q-meta-monto" type="number" placeholder="500,000" min="0" oninput="calcMetaCheck()"></div>
+            <div class="q-field"><label>Plazo para alcanzarlo (años)</label><input id="q-meta-anios" type="number" placeholder="10" min="1" max="50" value="10" oninput="calcMetaCheck()"></div>
           </div>
           <div class="q-field" style="margin-bottom:16px">
             <label>Retorno anual esperado</label>
@@ -895,7 +895,7 @@ body.cliente-mode .cliente-only{display:block!important}
 <script>
 'use strict';
 // ── GOOGLE SHEETS URL (reemplaza con tu URL de Apps Script) ──
-const SHEETS_URL = 'TU_URL_DE_APPS_SCRIPT_AQUI';
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwMDvCxjp-H51wpN96sUxKkEGRD7Ks_0INuLVZfMBqqFJdQWt2gZO94dVb1WnFymbxc/exec';
 
 // ── GLOBAL STATE ─────────────────────────────────────────────
 let qState = {
@@ -918,6 +918,7 @@ let asstOpen = false, chatHistory = [], isTyping = false, clientMode = false;
 let upgradeNewCapital = 0;
 let savedClients = [];
 let portfolioVersion = 1, portfolioHistory = [];
+let savedInforme = '', savedRemarketing = '';
 
 const n = v => parseFloat(v)||0;
 const fmt = v => new Intl.NumberFormat('es-EC',{minimumFractionDigits:0,maximumFractionDigits:0}).format(Math.round(v||0));
@@ -1201,6 +1202,7 @@ function startDashboard() {
     if(ub) ub.style.display = 'none';
     updateExecScore(d.score, d.alloc.color);
   }
+  document.getElementById('asst-toggle').classList.remove('hidden');
   updateBuckets();
 }
 
@@ -1220,6 +1222,12 @@ function showTab(id,btn) {
   if(el) el.classList.add('active');
   if(btn) btn.classList.add('active');
   if(id==='seguimiento') renderSeguimiento();
+  if(id==='informe') {
+    const inf=document.getElementById('ai-informe');
+    const rem=document.getElementById('ai-remarketing');
+    if(inf&&savedInforme){inf.textContent=savedInforme;inf.style.color='#888';inf.style.fontStyle='normal';}
+    if(rem&&savedRemarketing){rem.textContent=savedRemarketing;rem.style.color='#888';}
+  }
 }
 
 function showAnalisisTab(id,btn) {
@@ -1606,7 +1614,7 @@ async function scanOpportunity() {
 // ── AI REPORTS ────────────────────────────────────────────────
 function buildCtx() {
   const p=profileData;
-  return p?'Cliente: '+p.nombre+'|Perfil declarado: '+p.perfilDeclarado+'|Perfil real: '+p.alloc.perfil+'|Contradicción: '+(p.contradiccion?'SÍ — ajustado':'NO')+'|Score: '+p.score+'/100|Capital: $'+fmt(p.capital)+'|Horizonte: '+p.horizonte+'|Objetivo: '+p.objetivoVal+'|Retorno esperado: '+p.retorno+'%|Meta: $'+fmt(p.metaMonto)+' en '+p.metaAnios+' años|Activos preferidos: '+p.activos.join(', ')+'|Distribución: '+p.alloc.bajo+'%/'+p.alloc.medio+'%/'+p.alloc.alto+'%|Posiciones: '+assets.map(a=>a.ticker+'('+a.bucket+')').join(','):'Sin perfil cargado';
+  return p?'Cliente: '+p.nombre+'|Perfil declarado: '+p.perfilDeclarado+'|Perfil real: '+p.alloc.perfil+'|Contradicción: '+(p.contradiccion?'SÍ — ajustado':'NO')+'|Score: '+p.score+'/100|Capital: $'+fmt(p.capital)+'|Horizonte: '+p.horizonte+'|Objetivo: '+p.objetivo+'|Retorno esperado: '+p.retorno+'%|Meta: $'+fmt(p.metaMonto)+' en '+p.metaAnios+' años|Activos preferidos: '+p.activos.join(', ')+'|Distribución: '+p.alloc.bajo+'%/'+p.alloc.medio+'%/'+p.alloc.alto+'%|Posiciones: '+assets.map(a=>a.ticker+'('+a.bucket+')').join(','):'Sin perfil cargado';
 }
 
 async function genInforme() {
@@ -1624,6 +1632,7 @@ async function genInforme() {
     const data=await res.json();
     const text=data.content?.find(b=>b.type==='text')?.text;
     if(txt){txt.textContent=text||'Sin respuesta.';txt.style.color='#888';txt.style.fontStyle='normal';}
+    if(text) savedInforme=text;
   }catch(e){if(txt)txt.textContent='Error: '+e.message;}
 }
 
@@ -1641,6 +1650,7 @@ async function genRemarketingContent() {
     const data=await res.json();
     const text=data.content?.find(b=>b.type==='text')?.text;
     if(txt){txt.textContent=text||'Sin respuesta.';txt.style.color='#888';}
+    if(text) savedRemarketing=text;
   }catch(e){if(txt)txt.textContent='Error: '+e.message;}
 }
 
